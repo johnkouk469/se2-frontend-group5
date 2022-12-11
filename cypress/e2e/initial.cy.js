@@ -24,6 +24,6 @@ describe('Log in', () => {
 
     it('navigates to project screen if user is already authenticated', () => {
         cy.visit('http://localhost:3002/home');
-        cy.contains(/HELLO karanikio/i).should('exist');
+        cy.contains(/HELLO group5/i).should('exist');
     });
 });
