@@ -14,8 +14,7 @@ jobs:
           command: npm run test
           install-command: npm ci --force
         env:
-          TEST_TOKEN:
-          TEST_USERNAME:
-          TEST_ID:
-          TEST_EMAIL:
-              
+          TEST_TOKEN: ${{ secret.TEST_TOKEN }}
+          TEST_USERNAME: ${{ secret.TEST_USERNAME }}
+          TEST_ID: ${{ secret.TEST_ID }}
+          TEST_EMAIL: ${{ secret.TEST_EMAIL }}
