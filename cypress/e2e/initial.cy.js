@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 describe('Initial visit', () => {
-    it('navigates to sign in screen', () => {
+    it('navigates to sign in screen', async () => {
         cy.visit('http://localhost:3002');
-        cy.get('#test-username').type('karanikio');
-        cy.get('#test-password').type('12345');
+        await cy.get('#test-username').type('karanikio');
+        await cy.get('#test-password').type('12345');
     });
 });
 
