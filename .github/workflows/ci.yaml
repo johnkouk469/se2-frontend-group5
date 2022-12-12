@@ -22,3 +22,5 @@ jobs:
           TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
           TEST_ID: ${{ secrets.TEST_ID }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          REACT_APP_SERVER_URL: ${{ secrets.SERVER_URL }}
+          REACT_APP_PLATFORM_URL: http://localhost:3002/
