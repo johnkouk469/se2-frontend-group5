@@ -1,0 +1,24 @@
+name: ci
+
+on: push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Run test script
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+          start: npm run start
+          command: npm run test
+          install-command: npm ci
+        env:
+          TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_ID: ${{ secrets.TEST_ID }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
