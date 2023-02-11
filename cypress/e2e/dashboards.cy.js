@@ -29,28 +29,27 @@ describe('Navigate to dashboards screen', () => {
     });
 
 
-    it('Add new dashboard', () => {
+    it('Add new dashboard and cancel', () => {
         cy.visit('http://localhost:3002/home');
         cy.contains('My Dashboards').click();
         cy.contains('DASHBOARDS');
         cy.contains('Manage your Dashboards');
         cy.contains('Add New Dashboard').click();
-        // id of the pop up window once you select to add new dashboard
-        cy.get('form', {timeout: 1000}).should('exist');
-        // cy.get('Insert dashboard name').should('exist');
-
-        cy.get('form#signInForm').should('exist');
-        cy.get('form#signInForm').contains('Save').should('exist');
+        
         cy.get('form#signInForm').contains('Cancel').should('exist');
-    
-        cy.get('form#signInForm').within(() => {
-            cy.get('input').should('exist');
-            cy.get('input').type('My new dashboard');
-        })
-        // cy.get('form').contains('insertDashboardName', {timeout: 3000}).should('exist');
-        // cy.get('form').get('signInForm').should('exist');
-        // cy.get('signInForm').get('insertDashboardName', {timeout: 1000}).type('My new dashboard');
+        cy.get('form#signInForm').contains('Cancel').click();
     });
-    
 
+    it('Add new dashboard and save it', () => {
+        cy.visit('http://localhost:3002/home');
+        cy.contains('My Dashboards').click();
+        cy.contains('DASHBOARDS');
+        cy.contains('Manage your Dashboards');
+        cy.contains('Add New Dashboard').click();
+        
+        cy.get('input[type="text"]').type('My new dashboard');
+        cy.get('form#signInForm').contains('Save').should('exist');
+        cy.get('form#signInForm').contains('Save').click();
+    });
+        
 });
