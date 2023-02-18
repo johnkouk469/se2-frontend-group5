@@ -7,13 +7,12 @@ import {
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {map} from 'rxjs/operators';
-import {
-    XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, DiscreteColorLegend, Highlight, Borders, VerticalBarSeries
-} from 'react-vis';
+import {LineSeries, VerticalBarSeries} from 'react-vis';
 
 import '../../../../node_modules/react-vis/dist/style.css';
 import {formatDate} from '../../../lib/utilities';
 import SourceConnectedComponent from '../../source-connected';
+import PlotComponent from '../../plot';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
@@ -274,85 +273,45 @@ class Plot extends SourceConnectedComponent {
                             onMouseDown={(e) => e.stopPropagation()}
                         >
                             {spinnerOpen
-                            && (
-                                <div
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        position: 'absolute',
-                                        top: '0px',
-                                        left: '0px',
-                                        zIndex: 1000,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        background: 'rgba(255, 255, 255, 0.6)'
-                                    }}
-                                >
-                                    <Spinner intent="primary" size={Math.min(width / 10, height / 2)} />
-                                </div>
-                            )}
-                            <XYPlot
-                                height={height}
-                                width={width}
-                                margin={{bottom: 60}}
-                                xDomain={
-                                    lastDrawLocation && [
-                                        lastDrawLocation.left,
-                                        lastDrawLocation.right
-                                    ]
-                                }
-                                yDomain={
-                                    lastDrawLocation && [
-                                        lastDrawLocation.bottom,
-                                        lastDrawLocation.top
-                                    ]
-                                }
-                            >
-                                {verticalGrid && <VerticalGridLines />}
-                                {horizontalGrid && <HorizontalGridLines />}
-                                {plots}
-                                <Borders style={{
-                                    bottom: {fill: '#fff'},
-                                    left: {fill: '#fff'},
-                                    right: {fill: '#fff'},
-                                    top: {fill: '#fff'}
-                                }}
-                                />
-                                {xAxis && <XAxis tickFormat={(v) => formatDate(v, true)} tickLabelAngle={-45} tickValues={xTickValues} />}
-                                {yAxis && <YAxis />}
-                                {legend
                                 && (
-                                    <DiscreteColorLegend
-                                        items={legendItems}
+                                    <div
                                         style={{
+                                            width: '100%',
+                                            height: '100%',
                                             position: 'absolute',
-                                            top: ((legendPosition === 'topRight') || (legendPosition === 'topLeft')) ? '0px' : '',
-                                            bottom: ((legendPosition === 'bottomRight') || (legendPosition === 'bottomLeft')) ? '0px' : '',
-                                            left: ((legendPosition === 'topLeft') || (legendPosition === 'bottomLeft')) ? '0px' : '',
-                                            right: ((legendPosition === 'topRight') || (legendPosition === 'bottomRight')) ? '0px' : ''
+                                            top: '0px',
+                                            left: '0px',
+                                            zIndex: 1000,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            background: 'rgba(255, 255, 255, 0.6)'
                                         }}
-                                    />
+                                    >
+                                        <Spinner intent="primary" size={Math.min(width / 10, height / 2)} />
+                                    </div>
                                 )}
-                                <Highlight
-                                    onBrushEnd={(area) => this.setState({lastDrawLocation: area})}
-                                    onDrag={(area) => {
-                                        this.setState({
-                                            lastDrawLocation: {
-                                                bottom: lastDrawLocation.bottom + (area.top - area.bottom),
-                                                left: lastDrawLocation.left - (area.right - area.left),
-                                                right: lastDrawLocation.right - (area.right - area.left),
-                                                top: lastDrawLocation.top + (area.top - area.bottom)
-                                            }
-                                        });
-                                    }}
-                                />
-                            </XYPlot>
+                            <PlotComponent height={height} width={width} lastDrawLocation={lastDrawLocation} verticalGrid={verticalGrid} horizontalGrid={horizontalGrid} plots={plots} xAxis={xAxis} tickFormat={(v) => formatDate(v, true)} tickValues={xTickValues} yAxis={yAxis} legend={legend} items={legendItems} legendPosition={legendPosition} onBrushEnd={(area) => this.onBrushEnd(area)} onDrag={(area) => {this.onDrag(lastDrawLocation, area); }} />
                         </div>
                     )}
                 </ReactResizeDetector>
             </div>
         );
+    }
+
+    onBrushEnd(area) {
+        this.setState({lastDrawLocation: area});
+    }
+
+    onDrag(lastDrawLocation, area) {
+        this.setState({
+            lastDrawLocation: {
+                bottom: lastDrawLocation.bottom + (area.top - area.bottom),
+                left: lastDrawLocation.left - (area.right - area.left),
+                right: lastDrawLocation.right - (area.right - area.left),
+                top: lastDrawLocation.top + (area.top - area.bottom)
+            }
+        });
     }
 }
 

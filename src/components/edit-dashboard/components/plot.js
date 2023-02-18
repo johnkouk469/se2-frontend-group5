@@ -6,9 +6,7 @@ import {
 } from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
-import {
-    XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, DiscreteColorLegend, Highlight, Borders, VerticalBarSeries
-} from 'react-vis';
+import {LineSeries, VerticalBarSeries} from 'react-vis';
 import styled from 'styled-components';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {
@@ -20,6 +18,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import {formatDate} from '../../../lib/utilities';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import PlotComponent from '../../plot';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -431,7 +430,7 @@ class Plot extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-               <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (
                         <div
@@ -444,62 +443,7 @@ class Plot extends React.Component {
                             }}
                             onMouseDown={(e) => e.stopPropagation()}
                         >
-                            <XYPlot
-                                height={height}
-                                width={width}
-                                margin={{bottom: 60}}
-                                xDomain={
-                                    lastDrawLocation && [
-                                        lastDrawLocation.left,
-                                        lastDrawLocation.right
-                                    ]
-                                }
-                                yDomain={
-                                    lastDrawLocation && [
-                                        lastDrawLocation.bottom,
-                                        lastDrawLocation.top
-                                    ]
-                                }
-                            >
-                                {verticalGrid && <VerticalGridLines />}
-                                {horizontalGrid && <HorizontalGridLines />}
-                                {plots}
-                                <Borders style={{
-                                    bottom: {fill: '#fff'},
-                                    left: {fill: '#fff'},
-                                    right: {fill: '#fff'},
-                                    top: {fill: '#fff'}
-                                }}
-                                />
-                                {xAxis && <XAxis tickFormat={(v) => formatDate(v, true)} tickLabelAngle={-45} tickValues={xTickValues} />}
-                                {yAxis && <YAxis />}
-                                {legend
-                                && (
-                                    <DiscreteColorLegend
-                                        items={legendItems}
-                                        style={{
-                                            position: 'absolute',
-                                            top: ((legendPosition === 'topRight') || (legendPosition === 'topLeft')) ? '0px' : '',
-                                            bottom: ((legendPosition === 'bottomRight') || (legendPosition === 'bottomLeft')) ? '0px' : '',
-                                            left: ((legendPosition === 'topLeft') || (legendPosition === 'bottomLeft')) ? '0px' : '',
-                                            right: ((legendPosition === 'topRight') || (legendPosition === 'bottomRight')) ? '0px' : ''
-                                        }}
-                                    />
-                                )}
-                                <Highlight
-                                    onBrushEnd={(area) => this.setState({lastDrawLocation: area})}
-                                    onDrag={(area) => {
-                                        this.setState({
-                                            lastDrawLocation: {
-                                                bottom: lastDrawLocation.bottom + (area.top - area.bottom),
-                                                left: lastDrawLocation.left - (area.right - area.left),
-                                                right: lastDrawLocation.right - (area.right - area.left),
-                                                top: lastDrawLocation.top + (area.top - area.bottom)
-                                            }
-                                        });
-                                    }}
-                                />
-                            </XYPlot>
+                            <PlotComponent height={height} width={width} lastDrawLocation={lastDrawLocation} verticalGrid={verticalGrid} horizontalGrid={horizontalGrid} plots={plots} xAxis={xAxis} tickFormat={(v) => formatDate(v, true)} tickValues={xTickValues} yAxis={yAxis} legend={legend} items={legendItems} legendPosition={legendPosition} onBrushEnd={(area) => this.onBrushEnd(area)} onDrag={(area) => {this.onDrag(lastDrawLocation, area); }} />
                         </div>
                     )}
                 </ReactResizeDetector>
@@ -913,6 +857,23 @@ class Plot extends React.Component {
             <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />
         ]);
     }
+
+    // eslint-disable-next-line react/sort-comp
+    onBrushEnd(area) {
+        this.setState({lastDrawLocation: area});
+    }
+
+    onDrag(lastDrawLocation, area) {
+        this.setState({
+            lastDrawLocation: {
+                bottom: lastDrawLocation.bottom + (area.top - area.bottom),
+                left: lastDrawLocation.left - (area.right - area.left),
+                right: lastDrawLocation.right - (area.right - area.left),
+                top: lastDrawLocation.top + (area.top - area.bottom)
+            }
+        });
+    }
+
 }
 
 const createPlot = ({id, type, initialState, updateItem, deleteItem, cloneComponent, sources}) => (
