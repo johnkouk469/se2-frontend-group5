@@ -2,21 +2,19 @@
 /* eslint-disable max-len */
 import React from 'react';
 import {
-    EditableText, InputGroup, Menu, MenuItem, NumericInput, Popover, Tooltip
+    InputGroup, Menu, MenuItem, NumericInput, Popover,
 } from '@blueprintjs/core';
-import {
-    faClone, faCog, faTrashAlt
-} from '@fortawesome/free-solid-svg-icons';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import {formatDate} from '../../../lib/utilities';
 import AlertComponent from './alert';
+import Toolbar from './toolbar';
+import UpdateSourceComponent from './update-source';
 
-class Alive extends React.Component {
+class Alive extends UpdateSourceComponent {
     constructor(props) {
         super(props);
 
@@ -70,65 +68,6 @@ class Alive extends React.Component {
         };
     }
 
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
-    }
-
-    openPopup() {
-        const {source, topic, timeout} = this.state;
-        this.setState({
-            popoverOpen: true,
-            tempSource: source,
-            tempTopic: topic,
-            tempTimeout: timeout
-        });
-    }
-
-    closePopup() {
-        this.setState({
-            popoverOpen: false,
-            tempSource: 'Select source',
-            tempTopic: '',
-            tempTimeout: 1000
-        });
-    }
-
-    closeConfirmPopup() {
-        const {tempSource, tempTopic, tempTimeout} = this.state;
-        this.sendUpdate('source', tempSource);
-        this.sendUpdate('topic', tempTopic);
-        this.sendUpdate('timeout', tempTimeout);
-        this.setState({popoverOpen: false});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
-    changeSource(value) {
-        this.setState({tempSource: value});
-    }
-
-    changeTopic(event) {
-        event.stopPropagation();
-        this.setState({tempTopic: event.target.value});
-    }
-
     changeTimeout(value) {
         this.setState({tempTimeout: value});
     }
@@ -168,55 +107,7 @@ class Alive extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-                <div
-                    style={{
-                        width: '100%',
-                        height: '25px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        background: '#16335B',
-                        borderTopLeftRadius: '10px',
-                        borderTopRightRadius: '10px',
-                        position: 'relative',
-                        fontSize: '13px'
-                    }}
-                >
-                    <div onMouseDown={(e) => e.stopPropagation()}>
-                        <EditableText className="name-edit" onChange={this.changeName} onMouseDown={(e) => e.stopPropagation()} placeholder="Component Name" value={name} />
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            right: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <div style={{paddingRight: '5px'}}>
-                            <Tooltip content="Clone component" popoverClassName="item-info-tooltip">
-                                <FontAwesomeIcon icon={faClone} style={{color: 'white', fontSize: '13px', cursor: 'pointer'}} onClick={this.clone} />
-                            </Tooltip>
-                        </div>
-                        <FontAwesomeIcon icon={faCog} style={{color: 'white', cursor: 'pointer'}} onClick={this.openPopup} />
-
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            left: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faTrashAlt} style={{color: '#DE162F', cursor: 'pointer'}} onClick={this.openDelete} />
-                    </div>
-                </div>
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (
                         <div

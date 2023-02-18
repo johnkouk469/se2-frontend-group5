@@ -9,8 +9,9 @@ import ReactResizeDetector from 'react-resize-detector';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ChangeSourceComponent from '../../change-source';
+import UpdateSourceComponent from './update-source';
 
-class Json extends React.Component {
+class Json extends UpdateSourceComponent {
     constructor(props) {
         super(props);
 
@@ -72,76 +73,6 @@ class Json extends React.Component {
             topic: props.initialState.topic || '',
             variable: props.initialState.variable || ''
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
-    }
-
-    openPopup() {
-        const {source, topic, variable} = this.state;
-        this.setState({
-            popoverOpen: true,
-            tempSource: source,
-            tempTopic: topic,
-            tempVariable: variable
-        });
-    }
-
-    closePopup() {
-        this.setState({
-            popoverOpen: false,
-            tempSource: 'Select source',
-            tempTopic: '',
-            tempVariable: ''
-        });
-    }
-
-    closeConfirmPopup() {
-        const {tempSource, tempTopic, tempVariable} = this.state;
-        this.sendUpdate('source', tempSource);
-        this.sendUpdate('topic', tempTopic);
-        this.sendUpdate('variable', tempVariable);
-        this.setState({popoverOpen: false});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
-    changeSource(value) {
-        this.setState({tempSource: value});
-    }
-
-    changeTopic(event) {
-        event.stopPropagation();
-        this.setState({tempTopic: event.target.value});
-    }
-
-    changeVariable(event) {
-        event.stopPropagation();
-        this.setState({tempVariable: event.target.value});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     resize(width, height) {

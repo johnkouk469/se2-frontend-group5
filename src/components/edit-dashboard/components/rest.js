@@ -1,19 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
-import {
-    EditableText, InputGroup, NumericInput, Tooltip
-} from '@blueprintjs/core';
-import {
-    faClone, faCog, faTrashAlt
-} from '@fortawesome/free-solid-svg-icons';
+import {InputGroup, NumericInput} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
+import Toolbar from './toolbar';
 
 const formatStatusColor = (status) => {
     const statusString = status.toString()[0];
@@ -165,55 +160,7 @@ class Rest extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-                <div
-                    style={{
-                        width: '100%',
-                        height: '25px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        background: '#16335B',
-                        borderTopLeftRadius: '10px',
-                        borderTopRightRadius: '10px',
-                        position: 'relative',
-                        fontSize: '13px'
-                    }}
-                >
-                    <div onMouseDown={(e) => e.stopPropagation()}>
-                        <EditableText className="name-edit" onChange={this.changeName} onMouseDown={(e) => e.stopPropagation()} placeholder="Component Name" value={name} />
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            right: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <div style={{paddingRight: '5px'}}>
-                            <Tooltip content="Clone component" popoverClassName="item-info-tooltip">
-                                <FontAwesomeIcon icon={faClone} style={{color: 'white', fontSize: '13px', cursor: 'pointer'}} onClick={this.clone} />
-                            </Tooltip>
-                        </div>
-                        <FontAwesomeIcon icon={faCog} style={{color: 'white', cursor: 'pointer'}} onClick={this.openPopup} />
-
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            left: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faTrashAlt} style={{color: '#DE162F', cursor: 'pointer'}} onClick={this.openDelete} />
-                    </div>
-                </div>
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (
                         <div

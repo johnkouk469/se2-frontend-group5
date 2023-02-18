@@ -11,8 +11,9 @@ import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import UpdateSourceComponent from './update-source';
 
-class Value extends React.Component {
+class Value extends UpdateSourceComponent {
     constructor(props) {
         super(props);
 
@@ -76,21 +77,6 @@ class Value extends React.Component {
         }
     }
 
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
-    }
-
     openPopup() {
         const {source, topic, variable, unit} = this.state;
         this.setState({
@@ -121,42 +107,14 @@ class Value extends React.Component {
         this.setState({popoverOpen: false});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
     resize(width, height) {
         const {unit} = this.state;
         this.setState({fontSize: Math.min(height, (width / (String(this.value).length + unit.length)))});
     }
 
-    changeSource(value) {
-        this.setState({tempSource: value});
-    }
-
-    changeTopic(event) {
-        event.stopPropagation();
-        this.setState({tempTopic: event.target.value});
-    }
-
-    changeVariable(event) {
-        event.stopPropagation();
-        this.setState({tempVariable: event.target.value});
-    }
-
     changeUnit(event) {
         event.stopPropagation();
         this.setState({tempUnit: event.target.value});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

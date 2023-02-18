@@ -13,8 +13,9 @@ import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import UpdateSourceComponent from './update-source';
 
-class Gauge extends React.Component {
+class Gauge extends UpdateSourceComponent {
     constructor(props) {
         super(props);
 
@@ -93,21 +94,6 @@ class Gauge extends React.Component {
         };
     }
 
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
-    }
-
     openPopup() {
         const {source, topic, variable, minValue, maxValue, leftColor, rightColor, levels, hideText, unit} = this.state;
         this.setState({
@@ -156,14 +142,6 @@ class Gauge extends React.Component {
         this.setState({popoverOpen: false});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
     resize(width, height) {
         let newWidth;
         if (width > 2.2225 * height) {
@@ -172,20 +150,6 @@ class Gauge extends React.Component {
             newWidth = 100;
         }
         this.setState({width: newWidth});
-    }
-
-    changeSource(value) {
-        this.setState({tempSource: value});
-    }
-
-    changeTopic(event) {
-        event.stopPropagation();
-        this.setState({tempTopic: event.target.value});
-    }
-
-    changeVariable(event) {
-        event.stopPropagation();
-        this.setState({tempVariable: event.target.value});
     }
 
     changeMinValue(value) {
@@ -218,12 +182,6 @@ class Gauge extends React.Component {
     changeUnit(event) {
         event.stopPropagation();
         this.setState({tempUnit: event.target.value});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {
