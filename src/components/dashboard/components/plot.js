@@ -10,16 +10,15 @@ import {map} from 'rxjs/operators';
 import {
     XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, DiscreteColorLegend, Highlight, Borders, VerticalBarSeries
 } from 'react-vis';
-import {ToasterBottom} from '../../../lib/toaster';
-import {findSource} from '../../../api/sources';
 
 import '../../../../node_modules/react-vis/dist/style.css';
 import {formatDate} from '../../../lib/utilities';
+import SourceConnectedComponent from '../../source-connected';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
 
-class Plot extends React.Component {
+class Plot extends SourceConnectedComponent {
     constructor(props) {
         super(props);
 
@@ -178,23 +177,6 @@ class Plot extends React.Component {
                 });
             });
         } catch {}
-    }
-
-    async connectToTopic() {
-        const {user, owner, name, source} = this.state;
-        const response = await findSource(source, owner, user);
-        if (response.success) {
-            if (response.source.type === 'stomp') {
-                this.connectStompSource(response.source);
-            } else {
-                this.connectMqttSource(response.source);
-            }
-        } else {
-            ToasterBottom.show({
-                intent: 'danger',
-                message: response.message || `There was a problem trying to find the source for ${name}`
-            });
-        }
     }
 
     resize(width, height) {

@@ -11,11 +11,12 @@ import {faExpand, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {ToasterBottom} from '../../../lib/toaster';
 import {findSource} from '../../../api/sources';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
+import SourceConnectedComponent from '../../source-connected';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
 
-class Image extends React.Component {
+class Image extends SourceConnectedComponent {
     constructor(props) {
         super(props);
 
@@ -87,9 +88,6 @@ class Image extends React.Component {
                     passcode: source.passcode,
                     host: source.vhost
                 },
-                // debug: (str) => {
-                //     console.log(`STOMP: ${str}`);
-                // },
                 brokerURL: source.url
             };
             // eslint-disable-next-line no-undef
@@ -104,46 +102,8 @@ class Image extends React.Component {
             this.rxStomp.watchForReceipt(initialReceiptId, () => {
                 this.changeSpinner(false);
             });
-        } catch {}
-    }
-
-    connectMqttSource(source) {
-        const {topic} = this.state;
-        try {
-            const config = {
-                username: source.login,
-                password: source.passcode
-            };
-
-            this.mqttClient = mqtt.connect(source.url, config);
-            this.mqttClient.on('connect', () => {
-                this.mqttClient.subscribe(`${topic}`, (err) => {
-                    if (!err) {
-                        this.changeSpinner(false);
-                    }
-                });
-            });
-
-            this.mqttClient.on('message', (__, message) => {
-                this.messageReceived(JSON.parse(message.toString()));
-            });
-        } catch {}
-    }
-
-    async connectToTopic() {
-        const {user, owner, name, source} = this.state;
-        const response = await findSource(source, owner, user);
-        if (response.success) {
-            if (response.source.type === 'stomp') {
-                this.connectStompSource(response.source);
-            } else {
-                this.connectMqttSource(response.source);
-            }
-        } else {
-            ToasterBottom.show({
-                intent: 'danger',
-                message: response.message || `There was a problem trying to find the source for ${name}`
-            });
+        } catch (e) {
+            console.log(e);
         }
     }
 
