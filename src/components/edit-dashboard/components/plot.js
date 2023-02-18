@@ -2,17 +2,13 @@
 /* eslint-disable max-len */
 import React from 'react';
 import {
-    Alert, EditableText, InputGroup, Menu, MenuItem, Popover, Switch, Tooltip, NumericInput
+    InputGroup, Menu, MenuItem, Popover, Switch, NumericInput
 } from '@blueprintjs/core';
-import {
-    faCog, faTrashAlt, faClone
-} from '@fortawesome/free-solid-svg-icons';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {
     XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, DiscreteColorLegend, Highlight, Borders, VerticalBarSeries
 } from 'react-vis';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {
@@ -22,6 +18,8 @@ import {
 import '../../../../node_modules/react-vis/dist/style.css';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import {formatDate} from '../../../lib/utilities';
+import AlertComponent from './alert';
+import Toolbar from './toolbar';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -433,54 +431,7 @@ class Plot extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-                <div
-                    style={{
-                        width: '100%',
-                        height: '25px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        background: '#16335B',
-                        borderTopLeftRadius: '10px',
-                        borderTopRightRadius: '10px',
-                        position: 'relative',
-                        fontSize: '13px'
-                    }}
-                >
-                    <div onMouseDown={(e) => e.stopPropagation()}>
-                        <EditableText className="name-edit" onChange={this.changeName} onMouseDown={(e) => e.stopPropagation()} placeholder="Component Name" value={name} />
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            right: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <div style={{paddingRight: '5px'}}>
-                            <Tooltip content="Clone component" popoverClassName="item-info-tooltip">
-                                <FontAwesomeIcon icon={faClone} style={{color: 'white', fontSize: '13px', cursor: 'pointer'}} onClick={this.clone} />
-                            </Tooltip>
-                        </div>
-                        <FontAwesomeIcon icon={faCog} style={{color: 'white', cursor: 'pointer'}} onClick={this.openPopup} />
-                    </div>
-                    <div
-                        style={{
-                            height: '100%',
-                            position: 'absolute',
-                            top: '0px',
-                            left: '2%',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faTrashAlt} style={{color: '#DE162F', cursor: 'pointer'}} onClick={this.openDelete} />
-                    </div>
-                </div>
+               <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (
                         <div
@@ -959,13 +910,7 @@ class Plot extends React.Component {
                     </div>
                 </SettingsDiv>
             </PortalOverflowOverlay>,
-            <Alert key="delete-alert" style={{background: 'white', color: 'black'}} usePortal cancelButtonText="Cancel" confirmButtonText="Delete" icon="trash" intent="danger" isOpen={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete}>
-                <p>
-                    Are you sure you want to delete the component
-                    <b style={{marginLeft: '5px'}}>{name}</b>
-                    ?
-                </p>
-            </Alert>
+            <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />
         ]);
     }
 }

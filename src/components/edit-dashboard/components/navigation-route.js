@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    Alert, EditableText, InputGroup, Menu, MenuItem, Popover, Tooltip
+    EditableText, InputGroup, Menu, MenuItem, Popover, Tooltip
 } from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
@@ -17,6 +17,7 @@ import {
 } from '../../../lib/buttons';
 import imagePlaceholder from '../../../assets/imagePlaceholder.png';
 import {FormHeader, SettingsDiv} from '../../styled-components';
+import AlertComponent from './alert';
 
 const CustomDiv = styled.div`
     width: 100%;
@@ -653,13 +654,7 @@ class NavigationRoute extends React.Component {
                     </div>
                 </SettingsDiv>
             </PortalOverflowOverlay>,
-            <Alert key="delete-alert" style={{background: 'white', color: 'black'}} usePortal cancelButtonText="Cancel" confirmButtonText="Delete" icon="trash" intent="danger" isOpen={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete}>
-                <p>
-                    Are you sure you want to delete the component
-                    <b style={{marginLeft: '5px'}}>{name}</b>
-                    ?
-                </p>
-            </Alert>
+            <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />
         ]);
     }
 }
