@@ -15,6 +15,11 @@ import infographicIcon from '../../assets/infographic.png';
 import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
 
+/*
+ * Defintion of HTML tags used to render 
+ * the home page.
+ */
+
 const StyledBox = styled(Box)`
     height: 100%;
     width: 50%;
@@ -91,6 +96,9 @@ const StyledDivider = styled(Divider)`
     margin-bottom: 5px;
 `;
 
+/*
+ * Tag for the contact information button
+ */
 const ContactDiv = styled.div`
     width: 30px; 
     height: 30px; 
@@ -149,6 +157,13 @@ export class SignInPage extends React.Component {
         });
     }
 
+    /*
+     * Function that fetches the statistics from 
+     * the backend server and passing them to the 
+     * state. Returns a message if the
+     * communication with the backend server was
+     * unsuccessful.
+     */
     async fetchStatistics() {
         const response = await getStatistics();
         if (response.success) {
@@ -165,7 +180,24 @@ export class SignInPage extends React.Component {
             });
         }
     }
-
+    
+    /*
+     * Renders the sign in page.
+     *
+     * The sign in page contains the statistics of
+     * the Codin platform taken from the state of 
+     * the SignInPage class. 
+     * A welcoming message to the platform.
+     * Two text inputs for username and password.
+     * A Sign In button.
+     * A message asking users if they have 
+     * forgotten their password with ability to
+     * redirect to the forgotten password page.
+     * A message asking users if they don't have 
+     * an account, followed by a hyper link to 
+     * redirect them to the sign up page.
+     * A button for contact information.
+     */
     render() {
         const {users, dashboards, views, sources, top, left, width, height} = this.state;
         return (
