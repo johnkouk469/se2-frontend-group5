@@ -7,6 +7,9 @@ import AppContainer from './app-container';
 import AppRoutes from './app-routes';
 import ErrorBoundary from './error-boundary';
 
+/*
+    Creates the general react app component
+*/
 const App = ({store, persistor}) => (
     <PersistGate loading={null} persistor={persistor}>
         <Router>

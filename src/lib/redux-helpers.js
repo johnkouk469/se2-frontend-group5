@@ -1,9 +1,13 @@
+// Imports
 import {
     equals, complement, isNil, ifElse
 } from 'ramda';
 
 const isNotNil = complement(isNil);
 
+/*
+    Define the actions available
+*/
 export const actionTypeEq = (actionType) =>
     ifElse(
         (_, {type}) => isNotNil(type),

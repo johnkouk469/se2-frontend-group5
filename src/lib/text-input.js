@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import {concat} from 'ramda';
 import {InputGroup, FormGroup} from '@blueprintjs/core';
@@ -5,6 +6,10 @@ import {getFormErrorsField} from './utilities';
 
 const flexClassName = (flex) => `flex-${String(flex).replace('.', '_')}`;
 
+/*
+    Define the text input component used
+    for the app pages
+*/
 export const TextInput = ({
     formikProps: {errors, touched, handleChange, handleBlur, values},
     id,
@@ -56,6 +61,9 @@ export const TextInput = ({
     </FormGroup>
 );
 
+/*
+    Default text input component values
+*/
 TextInput.defaultProps = {
     type: 'text',
     placeholder: '',

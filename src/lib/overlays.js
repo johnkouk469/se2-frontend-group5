@@ -6,6 +6,9 @@ import {
 import styled from 'styled-components';
 import classNames from 'classnames';
 
+/*
+    Component for the whole screen
+*/
 const WholeScreen = styled.div`
     width: 100%;
     height: 100%;
@@ -16,12 +19,18 @@ const WholeScreen = styled.div`
     flex-direction: column;
 `;
 
+/*
+    Component for the whole overflow screen
+*/
 const WholeOverflowScreen = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
 `;
 
+/*
+    Main component to put new components up on
+*/
 const MainBox = styled.div`
     background: radial-gradient(#313132, #030305);
     padding: 20px;
@@ -34,6 +43,11 @@ const classes = classNames(
     Classes.OVERLAY_SCROLL_CONTAINER
 );
 
+/*
+    The specific implementation of OverflowOverlay 
+    given the contents of
+    Overlay, WholeOverflowScreen and MainBox
+*/
 export const OverflowOverlay = ({
     children,
     id,
@@ -57,6 +71,12 @@ export const OverflowOverlay = ({
     </Overlay>
 );
 
+
+/*
+    The specific implementation of PortalOverflowOverlay
+    given the contents of
+    Overlay, WholeOverflowScreen and MainBox
+*/
 export const PortalOverflowOverlay = ({
     children,
     id,
@@ -80,6 +100,11 @@ export const PortalOverflowOverlay = ({
     </Overlay>
 );
 
+/*
+    CustomSpinner is the component
+    shown when the client waits for the server
+    response
+*/
 export const CustomSpinner = ({isOpen}) => (
     <Overlay key="spinnerOverlay" className={classes} isOpen={isOpen} usePortal transitionDuration={0} canEscapeKeyClose={false} canOutsideClickClose={false}>
         <WholeScreen>
