@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 /*
     Configures all button components in the edit dashboard page
-    */ 
+*/ 
 import React from 'react';
 import styled from 'styled-components';
 import {
@@ -18,6 +18,9 @@ import {
     BlueBorderButton, BlueButton, OrangeButton, CustomButton
 } from '../../../lib/buttons';
 
+/*
+    Header styling
+*/ 
 const FormHeader = styled.div`
     width: 100%;
     display: flex;
@@ -30,6 +33,9 @@ const FormHeader = styled.div`
     position: relative;
 `;
 
+/*
+    Subheader styling
+*/ 
 const FormSubHeader = styled.div`
     width: 100%;
     display: flex;
@@ -40,6 +46,9 @@ const FormSubHeader = styled.div`
     color: #16335B;
 `;
 
+/*
+    Settings styling
+*/ 
 const SettingsDiv = styled.div`
     width: 100%;
     display: flex;
@@ -47,17 +56,26 @@ const SettingsDiv = styled.div`
     align-items: center;
 `;
 
+/*
+    Text alignmnts
+*/ 
 const textAlignments = {
     left: 'Left',
     center: 'Center',
     right: 'Right'
 };
 
+/*
+   Button alignmnts
+*/ 
 const buttonAlignments = {
     vertical: 'Vertical',
     horizontal: 'Horizontal'
 };
 
+/*
+   Checks the validity of a JSON object
+*/ 
 const isValidJson = (input) => {
     try {
         JSON.parse(input);
@@ -67,7 +85,13 @@ const isValidJson = (input) => {
     return true;
 };
 
+/*
+   Class for buttons 
+*/ 
 class Buttons extends React.Component {
+    /*
+        Constructor
+    */ 
     constructor(props) {
         super(props);
 
@@ -162,6 +186,9 @@ class Buttons extends React.Component {
         this.clone = this.clone.bind(this);
     }
 
+    /*
+        Get derived state
+    */
     static getDerivedStateFromProps(props) {
         return {
             id: props.id,
@@ -180,21 +207,33 @@ class Buttons extends React.Component {
         };
     }
 
+    /*
+        Updates the item upon press
+    */
     sendUpdate(key, value) {
         const {id} = this.state;
         this.updateItem(id, key, value);
     }
 
+    /*
+        Deletes the item upon press
+    */
     delete() {
         const {id} = this.state;
         this.setState({deletePopupOpen: false});
         this.deleteItem(id);
     }
 
+    /*
+        Changes the item name upon press
+    */
     changeName(value) {
         this.sendUpdate('name', value);
     }
 
+    /*
+        Opens pop up
+    */
     openPopup() {
         const {alignText, buttonsAlign, texts, sources, topics, payloads, isDynamic, colors, backgrounds, backgroundsHover} = this.state;
 
@@ -213,6 +252,9 @@ class Buttons extends React.Component {
         });
     }
 
+    /*
+        Closes pop up
+    */
     closePopup() {
         this.setState({
             popoverOpen: false,
@@ -231,6 +273,9 @@ class Buttons extends React.Component {
         });
     }
 
+    /*
+        Closes confirmation dialog
+    */
     closeConfirmPopup() {
         const {tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
 
@@ -260,6 +305,9 @@ class Buttons extends React.Component {
         }
     }
 
+    /*
+        Opens confirmation dialog
+    */
     confirmPopup() {
         const {tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
         this.sendUpdate('alignText', tempAlignText);
@@ -275,26 +323,44 @@ class Buttons extends React.Component {
         this.setState({popoverOpen: false, buttonPopoverOpen: false, buttonSelected: null});
     }
 
+    /*
+        Changes the state of the pop up dialog
+    */
     openDelete() {
         this.setState({deletePopupOpen: true});
     }
 
+    /*
+        Closes the delete confirmation dialog
+    */
     closeDelete() {
         this.setState({deletePopupOpen: false});
     }
 
+    /*
+        Opens pop over component upon press
+    */
     openButtonPopover(ind) {
         this.setState({popoverOpen: false, buttonPopoverOpen: true, buttonSelected: ind});
     }
 
+    /*
+        Change the text alignment
+    */
     changeAlignText(value) {
         this.setState({tempAlignText: value});
     }
 
+    /*
+        Change the button alignment
+    */
     changeButtonsAlign(value) {
         this.setState({tempButtonsAlign: value});
     }
 
+    /*
+        Changes text upon event occurence
+    */
     changeTexts(event, ind) {
         event.stopPropagation();
         const {tempTexts} = this.state;
@@ -302,12 +368,18 @@ class Buttons extends React.Component {
         this.setState({tempTexts});
     }
 
+    /*
+        Changes sources upon event occurence
+    */
     changeSources(value, ind) {
         const {tempSources} = this.state;
         tempSources[ind] = value;
         this.setState({tempSources});
     }
 
+    /*
+        Changes topic upon event occurence
+    */
     changeTopics(event, ind) {
         event.stopPropagation();
         const {tempTopics} = this.state;
@@ -315,6 +387,9 @@ class Buttons extends React.Component {
         this.setState({tempTopics});
     }
 
+    /*
+        Changes payload upon event occurence
+    */
     changePayloads(event, ind) {
         event.stopPropagation();
         const {tempPayloads} = this.state;
@@ -322,12 +397,17 @@ class Buttons extends React.Component {
         this.setState({tempPayloads});
     }
 
+    /*
+        Sets the dynamic variable of the test
+    */
     changeIsDynamic(ind) {
         const {tempIsDynamic} = this.state;
         tempIsDynamic[ind] = !(tempIsDynamic[ind]);
         this.setState({tempIsDynamic});
     }
-
+    /*
+        Changes colors
+    */
     changeColors(event, ind) {
         event.stopPropagation();
         const {tempColors} = this.state;
@@ -335,6 +415,9 @@ class Buttons extends React.Component {
         this.setState({tempColors});
     }
 
+    /*
+        Changes backgrounds
+    */
     changeBackgrounds(event, ind) {
         event.stopPropagation();
         const {tempBackgrounds} = this.state;
@@ -342,6 +425,9 @@ class Buttons extends React.Component {
         this.setState({tempBackgrounds});
     }
 
+    /*
+        Changes text upon hover 
+    */
     changeBackgroundsHover(event, ind) {
         event.stopPropagation();
         const {tempBackgroundsHover} = this.state;
@@ -349,6 +435,9 @@ class Buttons extends React.Component {
         this.setState({tempBackgroundsHover});
     }
 
+    /*
+        Adds button
+    */
     addButton() {
         const {tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
         tempTexts.push(`Button ${tempTexts.length + 1}`);
@@ -371,6 +460,9 @@ class Buttons extends React.Component {
         }, this.confirmPopup);
     }
 
+    /*
+        Removes button
+    */
     removeButton(ind) {
         const {tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
         tempTexts.splice(ind, 1);
@@ -393,16 +485,25 @@ class Buttons extends React.Component {
         }, this.confirmPopup);
     }
 
+    /*
+        Back button
+    */
     back() {
         this.setState({popoverOpen: true, buttonPopoverOpen: false, buttonSelected: null});
     }
 
+    /*
+        Clone
+    */
     clone() {
         const {id} = this.state;
         this.closePopup();
         this.cloneComponent(id);
     }
 
+    /*
+        Render the buttons
+    */
     render() {
         const {id, availableSources, name, alignText, buttonsAlign, texts, colors, backgrounds, backgroundsHover, popoverOpen, buttonPopoverOpen, buttonSelected, deletePopupOpen, tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
 
