@@ -14,17 +14,10 @@ import {ToasterBottom} from '../../../lib/toaster';
 import {findSource} from '../../../api/sources';
 
 import '../../../../node_modules/react-vis/dist/style.css';
+import {formatDate} from '../../../lib/utilities';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
-
-const formatDate = (dateM) => {
-    const date = new Date(dateM);
-    const hours = ((String(date.getHours())).length === 1) ? `0${String(date.getHours())}` : String(date.getHours());
-    const minutes = ((String(date.getMinutes())).length === 1) ? `0${String(date.getMinutes())}` : String(date.getMinutes());
-    const seconds = ((String(date.getSeconds())).length === 1) ? `0${String(date.getSeconds())}` : String(date.getSeconds());
-    return (`${hours}:${minutes}:${seconds}`);
-};
 
 class Plot extends React.Component {
     constructor(props) {
@@ -344,7 +337,7 @@ class Plot extends React.Component {
                                     top: {fill: '#fff'}
                                 }}
                                 />
-                                {xAxis && <XAxis tickFormat={(v) => formatDate(v)} tickLabelAngle={-45} tickValues={xTickValues} />}
+                                {xAxis && <XAxis tickFormat={(v) => formatDate(v, true)} tickLabelAngle={-45} tickValues={xTickValues} />}
                                 {yAxis && <YAxis />}
                                 {legend
                                 && (

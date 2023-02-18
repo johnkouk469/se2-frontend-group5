@@ -1,10 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
-import {Box} from 'rebass';
-import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Formik} from 'formik';
-import {Divider, Text} from '@blueprintjs/core';
 import actions from '../../actions';
 import TextInput from '../../lib/text-input';
 import {OrangeButton} from '../../lib/buttons';
@@ -14,97 +11,10 @@ import {getStatistics} from '../../api/general';
 import infographicIcon from '../../assets/infographic.png';
 import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
+import {
+    StyledSubHeader, StyledHeader, StyledBox, StyledForm, StyledDivider, ForgotPasswordText, OrangeLink, Contact, SignUpText
+} from '../styled-components';
 
-const StyledBox = styled(Box)`
-    height: 100%;
-    width: 50%;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    justify-content: center;
-    position: relative;
-`;
-
-const StyledHeader = styled.h2`
-    text-align: left;
-    color: white;
-    margin: 0px;
-    font-size: 50px;
-    font-weight: 300;
-    letter-spacing: 2px;
-`;
-
-const StyledSubHeader = styled.h2`
-    width: 100%;
-    text-align: left;
-    color: #FF9D66;
-    margin: 0px;
-    margin-bottom: 20px;
-    font-size: 33px;
-    font-weight: normal;
-    letter-spacing: 2px;
-`;
-
-const StyledForm = styled.form`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const StyledText = styled(Text)`
-    font-size: 16px;
-`;
-
-const ForgotPasswordText = styled(StyledText)`
-    color: white;
-    margin-top: 20px;
-    text-align: center;
-`;
-
-const SignUpText = styled(StyledText)`
-    color: white;
-    text-align: center;
-`;
-
-const StyledLink = styled.a`
-    :hover {
-        text-decoration: none;
-    }
-`;
-
-const OrangeLink = styled(StyledLink)`
-    color: #FFC4A3;
-    :hover {
-        color: #ffae80;
-    }
-`;
-
-const StyledDivider = styled(Divider)`
-    width: 100%;
-    border-bottom: 1px solid #7296A7;
-    border-right: 1px solid #7296A7;
-    margin: 0px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-`;
-
-const ContactDiv = styled.div`
-    width: 30px; 
-    height: 30px; 
-    position: absolute; 
-    bottom: 10px; 
-    left: 10px;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    :active {
-        bottom: 9px;
-    }
-`;
 
 export class SignInPage extends React.Component {
     constructor(props) {
@@ -236,7 +146,7 @@ export class SignInPage extends React.Component {
                             </OrangeLink>
                         </SignUpText>
                     </div>
-                    <ContactDiv
+                    <Contact
                         onMouseOver={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                         onFocus={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                         onMouseOut={() => { document.getElementById('contactImg').src = contactIcon; }}
@@ -245,7 +155,7 @@ export class SignInPage extends React.Component {
                         <a href="mailto:karanikio@auth.gr" target="_blank" rel="noopener noreferrer">
                             <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
                         </a>
-                    </ContactDiv>
+                    </Contact>
                 </StyledBox>
                 <StyledBox>
                     <div 

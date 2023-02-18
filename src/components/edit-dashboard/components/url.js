@@ -13,25 +13,7 @@ import ReactResizeDetector from 'react-resize-detector';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-    position: relative;
-`;
-
-const SettingsDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+import {FormHeader, SettingsDiv} from '../../styled-components';
 
 const StyledLink = styled.div`
     width: 100%;

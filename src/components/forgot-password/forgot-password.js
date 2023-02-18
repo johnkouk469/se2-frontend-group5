@@ -1,10 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import {Box} from 'rebass';
-import styled from 'styled-components';
-import {Divider, Text} from '@blueprintjs/core';
 import {Formik} from 'formik';
+import styled from 'styled-components';
 import TextInput from '../../lib/text-input';
 import {OrangeButton} from '../../lib/buttons';
 import {handleSubmit, validationSchema} from './form-handler';
@@ -13,27 +11,9 @@ import {getStatistics} from '../../api/general';
 import infographicIcon from '../../assets/infographic.png';
 import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
-
-const StyledBox = styled(Box)`
-    height: 100%;
-    width: 50%;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0px;
-    position: relative;
-`;
-
-const StyledHeader = styled.h2`
-    text-align: left;
-    color: white;
-    margin: 0px;
-    font-size: 50px;
-    font-weight: 300;
-    letter-spacing: 2px;
-`;
+import {
+    StyledHeader, StyledBox, StyledForm, StyledDivider, OrangeLink, Contact as ContactDiv, SignUpText
+} from '../styled-components';
 
 const StyledSubHeader = styled.h2`
     width: 100%;
@@ -43,59 +23,6 @@ const StyledSubHeader = styled.h2`
     margin-bottom: 20px;
     font-size: 25px;
     font-weight: normal;
-`;
-
-const StyledForm = styled.form`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const StyledText = styled(Text)`
-    font-size: 16px;
-`;
-
-const SignUpText = styled(StyledText)`
-    color: white;
-    text-align: center;
-`;
-
-const StyledDivider = styled(Divider)`
-    width: 100%;
-    border-bottom: 1px solid #7296A7;
-    border-right: 1px solid #7296A7;
-    margin: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-`;
-
-const StyledLink = styled.a`
-    :hover {
-        text-decoration: none;
-    }
-`;
-
-const OrangeLink = styled(StyledLink)`
-    color: #FFC4A3;
-    :hover {
-        color: #ffae80;
-    }
-`;
-
-const ContactDiv = styled.div`
-    width: 30px; 
-    height: 30px; 
-    position: absolute; 
-    bottom: 10px; 
-    left: 10px;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    :active {
-        bottom: 9px;
-    }
 `;
 
 export class ForgotPasswordPage extends React.Component {

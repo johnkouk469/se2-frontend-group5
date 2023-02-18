@@ -29,24 +29,7 @@ import shareWhiteIcon from '../../assets/shareWhite.png';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 /* eslint-disable import/no-unresolved */
 import '../../../node_modules/react-resizable/css/styles.css';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-`;
-
-const SettingsDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+import {FormHeader, SettingsDiv, StyledButtonIcon} from '../styled-components';
 
 const StyledBox = styled(Box)`
     height: 100%;
@@ -58,9 +41,6 @@ const StyledBox = styled(Box)`
     position: relative;
 `;
 
-const StyledButtonIcon = styled.img.attrs((props) => ({src: props.icon}))`
-    position: relative;
-`;
 
 const ButtonWithText = ({text, info, iconWhite, handler}) => (
     <Tooltip

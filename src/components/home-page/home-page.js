@@ -2,7 +2,6 @@ import React from 'react';
 import {Box} from 'rebass';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Button} from '@blueprintjs/core';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
 import {ToasterBottom} from '../../lib/toaster';
@@ -17,6 +16,7 @@ import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
 import bugIcon from '../../assets/bug.png';
 import bugHoverIcon from '../../assets/bugHover.png';
+import {Contact, BugDiv, ButtonsArea, StyledText, MenuButton, StyledIcon} from '../styled-components';
 
 const StyledBox = styled(Box)`
     height: 100%;
@@ -59,71 +59,6 @@ const StyledSubHeader = styled.h2`
     font-size: 35px;
     font-weight: normal;
     letter-spacing: 2px;
-`;
-
-const ButtonsArea = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 20px;
-`;
-
-const StyledIcon = styled.img`
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-    flex-direction: column;
-`;
-
-const StyledText = styled.div`
-    color: white;
-    text-align: center;
-    font-weight: 550;
-    font-size: 22px;
-`;
-
-const MenuButton = styled(Button)`
-    border: 2px solid transparent;
-    :hover {
-        border: 2px solid #FF9D66;
-        background: none!important;
-        animation: blink2 0.2s linear;
-    }
-    :active {
-        top: 2px;
-        position: relative;
-    }
-`;
-
-const ContactDiv = styled.div`
-    width: 30px; 
-    height: 30px; 
-    position: absolute; 
-    bottom: 10px; 
-    left: 10px;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    :active {
-        bottom: 9px;
-    }
-`;
-
-const BugDiv = styled.div`
-    width: 30px; 
-    height: 30px; 
-    position: absolute; 
-    bottom: 10px; 
-    left: 50px;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    :active {
-        bottom: 9px;
-    }
 `;
 
 // eslint-disable-next-line no-unused-vars
@@ -190,7 +125,7 @@ export class HomePage extends React.Component {
                         ))}
                     </ButtonsArea>
                 </StyledArea>
-                <ContactDiv
+                <Contact
                     onMouseOver={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                     onFocus={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                     onMouseOut={() => { document.getElementById('contactImg').src = contactIcon; }}
@@ -199,7 +134,7 @@ export class HomePage extends React.Component {
                     <a href="mailto:karanikio@auth.gr" target="_blank" rel="noopener noreferrer">
                         <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
                     </a>
-                </ContactDiv>
+                </Contact>
                 <BugDiv
                     onMouseOver={() => { document.getElementById('bugImg').src = bugHoverIcon; }}
                     onFocus={() => { document.getElementById('bugImg').src = bugHoverIcon; }}

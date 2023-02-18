@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
-import styled from 'styled-components';
 import {
     Alert, EditableText, InputGroup, Menu, MenuItem, Popover, Tooltip
 } from '@blueprintjs/core';
@@ -15,25 +14,7 @@ import ReactResizeDetector from 'react-resize-detector';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-    position: relative;
-`;
-
-const SettingsDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+import {FormHeader, SettingsDiv} from '../../styled-components';
 
 class Json extends React.Component {
     constructor(props) {

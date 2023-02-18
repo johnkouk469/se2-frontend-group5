@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
-import styled from 'styled-components';
 import {
     Alert, EditableText, InputGroup, Menu, MenuItem, Popover, Switch, Tooltip, NumericInput
 } from '@blueprintjs/core';
@@ -14,24 +13,15 @@ import {
     XYPlot, LineSeries, HorizontalGridLines, VerticalGridLines, XAxis, YAxis, DiscreteColorLegend, Highlight, Borders, VerticalBarSeries
 } from 'react-vis';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {
     BlueBorderButton, BlueButton, OrangeButton
 } from '../../../lib/buttons';
 
 import '../../../../node_modules/react-vis/dist/style.css';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-    position: relative;
-`;
+import {FormHeader, SettingsDiv} from '../../styled-components';
+import {formatDate} from '../../../lib/utilities';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -43,32 +33,11 @@ const FormSubHeader = styled.div`
     color: #16335B;
 `;
 
-const SettingsDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
 const legendPositions = {
     topLeft: 'Top-Left',
     topRight: 'Top-Right',
     bottomLeft: 'Bottom-Left',
     bottomRight: 'Bottom-Right'
-};
-
-const formatDate = (dateM) => {
-    const date = new Date(dateM);
-    // const day = ((String(date.getDate())).length === 1) ? `0${String(date.getDate())}` : String(date.getDate());
-    // const month = ((String(date.getMonth() + 1)).length === 1) ? `0${String(date.getMonth() + 1)}` : String(date.getMonth() + 1);
-    // const year = date.getFullYear();
-    const hours = ((String(date.getHours())).length === 1) ? `0${String(date.getHours())}` : String(date.getHours());
-    const minutes = ((String(date.getMinutes())).length === 1) ? `0${String(date.getMinutes())}` : String(date.getMinutes());
-    const seconds = ((String(date.getSeconds())).length === 1) ? `0${String(date.getSeconds())}` : String(date.getSeconds());
-
-    return (`${hours}:${minutes}:${seconds}`);
-
-    // return (`${day}/${month}/${year}`);
 };
 
 const plotTypes = {
@@ -551,7 +520,7 @@ class Plot extends React.Component {
                                     top: {fill: '#fff'}
                                 }}
                                 />
-                                {xAxis && <XAxis tickFormat={(v) => formatDate(v)} tickLabelAngle={-45} tickValues={xTickValues} />}
+                                {xAxis && <XAxis tickFormat={(v) => formatDate(v, true)} tickLabelAngle={-45} tickValues={xTickValues} />}
                                 {yAxis && <YAxis />}
                                 {legend
                                 && (

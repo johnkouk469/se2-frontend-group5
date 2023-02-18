@@ -14,18 +14,7 @@ import {
     BlueBorderButton, BlueButton, OrangeButton
 } from '../../../lib/buttons';
 import logsPlaceholder from '../../../assets/logsPlaceholder.png';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-    position: relative;
-`;
+import {FormHeader, SettingsDiv} from '../../styled-components';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -35,13 +24,6 @@ const FormSubHeader = styled.div`
     margin-bottom: 15px;
     font-size: 18px;
     color: #16335B;
-`;
-
-const SettingsDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 `;
 
 class Logs extends React.Component {

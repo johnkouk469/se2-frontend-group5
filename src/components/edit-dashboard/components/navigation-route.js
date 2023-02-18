@@ -16,27 +16,7 @@ import {
     BlueBorderButton, BlueButton, OrangeButton
 } from '../../../lib/buttons';
 import imagePlaceholder from '../../../assets/imagePlaceholder.png';
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-    position: relative;
-`;
-
-const SettingsDiv = styled.div`
-    width: 100%;
-    max-height: 400px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+import {FormHeader, SettingsDiv} from '../../styled-components';
 
 const CustomDiv = styled.div`
     width: 100%;
