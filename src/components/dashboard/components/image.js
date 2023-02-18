@@ -8,13 +8,10 @@ import ReactResizeDetector from 'react-resize-detector';
 import {map} from 'rxjs/operators';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExpand, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {ToasterBottom} from '../../../lib/toaster';
-import {findSource} from '../../../api/sources';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import SourceConnectedComponent from '../../source-connected';
 
 const objectPath = require('object-path');
-const mqtt = require('mqtt');
 
 class Image extends SourceConnectedComponent {
     constructor(props) {

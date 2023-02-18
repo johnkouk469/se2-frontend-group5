@@ -1,14 +1,11 @@
 /* eslint-disable max-len */
 import React from 'react';
 import {Spinner} from '@blueprintjs/core';
-import {map} from 'rxjs/operators';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {formatDate} from '../../../lib/utilities';
 import RangeComponent from '../../range';
 import SourceConnectedComponent from '../../source-connected';
-
-const mqtt = require('mqtt');
 
 class Alive extends SourceConnectedComponent {
     constructor(props) {

@@ -9,13 +9,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
-import {map} from 'rxjs/operators';
 import {formatDate} from '../../../lib/utilities';
 import RangeComponent from '../../range';
 import SourceConnectedComponent from '../../source-connected';
 
 const objectPath = require('object-path');
-const mqtt = require('mqtt');
 const fileDownload = require('js-file-download');
 
 class Logs extends SourceConnectedComponent {
