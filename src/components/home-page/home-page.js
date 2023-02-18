@@ -18,6 +18,11 @@ import contactHoverIcon from '../../assets/contactHover.png';
 import bugIcon from '../../assets/bug.png';
 import bugHoverIcon from '../../assets/bugHover.png';
 
+/*
+ * Defintion of HTML tags used to render 
+ * the home page.
+ */
+
 const StyledBox = styled(Box)`
     height: 100%;
     width: 100%;
@@ -96,6 +101,9 @@ const MenuButton = styled(Button)`
     }
 `;
 
+/*
+ * Tag for the contact information button
+ */
 const ContactDiv = styled.div`
     width: 30px; 
     height: 30px; 
@@ -111,6 +119,9 @@ const ContactDiv = styled.div`
     }
 `;
 
+/*
+ * Tag for the bug button
+ */
 const BugDiv = styled.div`
     width: 30px; 
     height: 30px; 
@@ -151,7 +162,10 @@ export class HomePage extends React.Component {
         this.clearAuth = props.clearAuth;
         this.pushHistory = props.history.push;
     }
-
+    /*
+     * Shows a message notifing that the connection
+     * session has expired when the token expires.
+     */
     componentDidMount() {
         if (jwt_decode(this.token).exp < Date.now() / 1000) {
             this.clearAuth();
@@ -162,6 +176,18 @@ export class HomePage extends React.Component {
         }
     }
 
+    /*
+     *  Renders the home page which contains a 
+     *  welcoming text with the name of the authenticated
+     *  user. Includes a subheader asking the user what
+     *  they want to do and promting them to push one of
+     *  the three buttons, "My Sources", "My Dashboards",
+     *  and "My Profile". Additonally it contains on the 
+     *  down left corner a button with contact information
+     *  and a bug button promting to the issues page of
+     *  the Github repo.
+     *  
+     */
     render() {
         const buttons = [
             {text: 'My Sources', handler: () => this.pushHistory('/sources'), iconWhite: sourcesWhiteIcon, iconOrange: sourcesOrangeIcon},
