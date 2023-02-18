@@ -195,18 +195,20 @@ export class HomePage extends React.Component {
                     onFocus={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                     onMouseOut={() => { document.getElementById('contactImg').src = contactIcon; }}
                     onBlur={() => { document.getElementById('contactImg').src = contactIcon; }}
-                    onClick={() => { window.location = 'mailto:karanikio@auth.gr'; }}
                 >
-                    <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                    <a href="mailto:karanikio@auth.gr" target="_blank" rel="noopener noreferrer">
+                        <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                    </a>
                 </ContactDiv>
                 <BugDiv
                     onMouseOver={() => { document.getElementById('bugImg').src = bugHoverIcon; }}
                     onFocus={() => { document.getElementById('bugImg').src = bugHoverIcon; }}
                     onMouseOut={() => { document.getElementById('bugImg').src = bugIcon; }}
                     onBlur={() => { document.getElementById('bugImg').src = bugIcon; }}
-                    onClick={() => window.open('https://github.com/robotics-4-all/codin-issues/issues', '_blank')}
                 >
-                    <img id="bugImg" src={bugIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                    <a href="https://github.com/robotics-4-all/codin-issues/issues" target="_blank" rel="noopener noreferrer">
+                        <img id="bugImg" src={bugIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                    </a>
                 </BugDiv>
             </StyledBox>
         );

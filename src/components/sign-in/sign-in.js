@@ -241,9 +241,10 @@ export class SignInPage extends React.Component {
                         onFocus={() => { document.getElementById('contactImg').src = contactHoverIcon; }}
                         onMouseOut={() => { document.getElementById('contactImg').src = contactIcon; }}
                         onBlur={() => { document.getElementById('contactImg').src = contactIcon; }}
-                        onClick={() => { window.location = 'mailto:karanikio@auth.gr'; }}
                     >
-                        <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                        <a href="mailto:karanikio@auth.gr" target="_blank" rel="noopener noreferrer">
+                            <img id="contactImg" src={contactIcon} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+                        </a>
                     </ContactDiv>
                 </StyledBox>
                 <StyledBox>
