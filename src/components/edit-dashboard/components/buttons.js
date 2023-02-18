@@ -210,7 +210,7 @@ class Buttons extends React.Component {
     }
 
     closeConfirmPopup() {
-        const {tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
+        const {tempPayloads, tempTexts} = this.state;
 
         let allValid = true;
         tempPayloads.forEach((p, ind) => {
@@ -224,22 +224,11 @@ class Buttons extends React.Component {
         });
 
         if (allValid) {
-            this.sendUpdate('alignText', tempAlignText);
-            this.sendUpdate('buttonsAlign', tempButtonsAlign);
-            this.sendUpdate('texts', tempTexts);
-            this.sendUpdate('sources', tempSources);
-            this.sendUpdate('topics', tempTopics);
-            this.sendUpdate('payloads', tempPayloads);
-            this.sendUpdate('isDynamic', tempIsDynamic);
-            this.sendUpdate('colors', tempColors);
-            this.sendUpdate('backgrounds', tempBackgrounds);
-            this.sendUpdate('backgroundsHover', tempBackgroundsHover);
-            this.setState({popoverOpen: false, buttonPopoverOpen: false, buttonSelected: null});
+            this.update(...this.state);
         }
     }
 
-    confirmPopup() {
-        const {tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover} = this.state;
+    update(tempAlignText, tempButtonsAlign, tempTexts, tempSources, tempTopics, tempPayloads, tempIsDynamic, tempColors, tempBackgrounds, tempBackgroundsHover) {
         this.sendUpdate('alignText', tempAlignText);
         this.sendUpdate('buttonsAlign', tempButtonsAlign);
         this.sendUpdate('texts', tempTexts);
@@ -251,6 +240,10 @@ class Buttons extends React.Component {
         this.sendUpdate('backgrounds', tempBackgrounds);
         this.sendUpdate('backgroundsHover', tempBackgroundsHover);
         this.setState({popoverOpen: false, buttonPopoverOpen: false, buttonSelected: null});
+    }
+
+    confirmPopup() {
+        this.update(...this.state);
     }
 
     openDelete() {
@@ -390,7 +383,7 @@ class Buttons extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-               <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <div
                     id={`buttonsDiv_${id}`}
                     className={(buttonsAlign === 'vertical') ? 'vertical-buttons' : 'horizontal-buttons'}

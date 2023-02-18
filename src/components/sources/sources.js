@@ -11,6 +11,7 @@ import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
+import {RxStomp} from '@stomp/rx-stomp';
 import {ToasterBottom} from '../../lib/toaster';
 import actions from '../../actions';
 import createNewIcon from '../../assets/createNew.png';
@@ -283,7 +284,7 @@ export class SourcesPage extends React.Component {
                 oldSourceId: null,
                 formPopupOpen: false
             });
-            this.fetchSources();
+            await this.fetchSources();
         } else {
             ToasterBottom.show({
                 intent: 'danger',
@@ -313,7 +314,7 @@ export class SourcesPage extends React.Component {
                 intent: 'success',
                 message: 'Source deleted successfully'
             });
-            this.fetchSources();
+            await this.fetchSources();
         } else {
             ToasterBottom.show({
                 intent: 'danger',

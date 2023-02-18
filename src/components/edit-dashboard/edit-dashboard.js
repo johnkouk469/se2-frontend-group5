@@ -29,7 +29,6 @@ import '../../../node_modules/react-resizable/css/styles.css';
 
 const fileDownload = require('js-file-download');
 
-
 const DragComp = styled.div`
     width: 80%;
     border-radius: 50px;
@@ -80,10 +79,8 @@ const componentFits = (row, column, w, h, currentLayout, nCols) => {
         currentLayout.some((el) => {
             const xOverlap = valueInRange(column, el.x, el.x + el.w - 1) || valueInRange(el.x, column, column + w - 1);
             const yOverlap = valueInRange(row, el.y, el.y + el.h - 1) || valueInRange(el.y, row, row + h - 1);
-            if (xOverlap && yOverlap) {
-                return true;
-            }
-            return false;
+            return !!(xOverlap && yOverlap);
+
         })
     ) {
         return false;

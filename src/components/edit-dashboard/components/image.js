@@ -1,15 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
-import {
-    InputGroup, Menu, MenuItem, Popover
-} from '@blueprintjs/core';
-import {PortalOverflowOverlay} from '../../../lib/overlays';
-import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
+import {MenuItem} from '@blueprintjs/core';
 import imagePlaceholder from '../../../assets/imagePlaceholder.png';
-import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import ChangeSourceComponent from '../../change-source';
+
 
 class Image extends React.Component {
     constructor(props) {
@@ -161,71 +158,7 @@ class Image extends React.Component {
                     <img src={imagePlaceholder} alt="" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
                 </div>
             </div>,
-            <PortalOverflowOverlay key="settings" id="settings" isOpen={popoverOpen} width="450px" height="auto" background="white" borderRadius="10px" padding="20px" marginLeft="auto" marginRight="auto" color="black">
-                <FormHeader>
-                    {`${name} Settings`}
-                </FormHeader>
-                <SettingsDiv>
-                    <Popover popoverClassName="custom-popover">
-                        <BlueBorderButton type="button" width="410px" rightIcon="caret-down">
-                            {tempSource}
-                        </BlueBorderButton>
-                        <Menu>
-                            {availableSources.map((s) => (
-                                <MenuItem text={s} onClick={() => this.changeSource(s)} />
-                            ))}
-                        </Menu>
-                    </Popover>
-                    <div
-                        style={{
-                            width: '100%', height: '100%', marginTop: '10px', display: 'flex', alignItems: 'center'
-                        }}
-                    >
-                        <InputGroup
-                            leftIcon="tag"
-                            placeholder="Topic"
-                            onChange={this.changeTopic}
-                            value={tempTopic}
-                            fill
-                            large
-                        />
-                    </div>
-                    <div
-                        style={{
-                            width: '100%', height: '100%', marginTop: '10px', display: 'flex', alignItems: 'center'
-                        }}
-                    >
-                        <InputGroup
-                            leftIcon="variable"
-                            placeholder="Variable"
-                            onChange={this.changeVariable}
-                            value={tempVariable}
-                            fill
-                            large
-                        />
-                    </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
-                </SettingsDiv>
-            </PortalOverflowOverlay>,
+            <ChangeSourceComponent open={popoverOpen} name={name} tempSource={tempSource} availableSources={availableSources} mapFunc={(s) => (<MenuItem text={s} onClick={() => this.changeSource(s)} />)} onTopicChange={this.changeTopic} topic={tempTopic} onVariableChange={this.changeVariable} variable={tempVariable} onCancelClick={this.closePopup} onSaveClick={this.closeConfirmPopup} />,
             <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />
         ]);
     }

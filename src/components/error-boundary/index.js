@@ -13,7 +13,7 @@ export const Component = ({errors, children, removeError}) => {
             if (error) {
                 ToasterBottom.show({
                     intent: 'danger',
-                    message: error.message || 'An error has occured!',
+                    message: error.message || 'An error has occurred!',
                     onDismiss: () => {
                         removeError(error.id);
                     }

@@ -12,12 +12,8 @@ import {checkIsAuthenticated} from '../../lib/utilities';
 import actions from '../../actions';
 import logo from '../../assets/logo.png';
 import logoWhite from '../../assets/logoWhite.png';
-// import sourcesIcon from '../../assets/sourceBlue.png';
-// import dashboardIcon from '../../assets/dashboardBlue.png';
 import logoutIcon from '../../assets/logout.png';
 import homeIcon from '../../assets/home.png';
-// import sourcesWhiteIcon from '../../assets/sourceWhite.png';
-// import dashboardWhiteIcon from '../../assets/dashboardWhite.png';
 import logoutWhiteIcon from '../../assets/logoutWhite.png';
 import homeWhiteIcon from '../../assets/homeWhite.png';
 

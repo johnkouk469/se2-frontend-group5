@@ -45,7 +45,6 @@ const StyledIcon = styled.img.attrs((props) => ({src: props.icon}))`
     flex-direction: column;
 `;
 
-
 export class DashboardsPage extends React.Component {
     constructor(props) {
         super(props);

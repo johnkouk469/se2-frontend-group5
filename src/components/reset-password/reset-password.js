@@ -10,13 +10,12 @@ import {OrangeButton} from '../../lib/buttons';
 import {handleSubmit, validationSchema} from './form-handler';
 import {ToasterBottom} from '../../lib/toaster';
 import {getStatistics} from '../../api/general';
-import infographicIcon from '../../assets/infographic.png';
 import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
 import {
     StyledSubHeader, StyledHeader, StyledBox, StyledForm, StyledDivider, OrangeLink, Contact, SignUpText
 } from '../styled-components';
-
+import InfographicsComponent from '../infographics';
 
 export class ResetPasswordPage extends React.Component {
     constructor(props) {
@@ -159,160 +158,7 @@ export class ResetPasswordPage extends React.Component {
                         </a>
                     </Contact>
                 </StyledBox>
-                <StyledBox>
-                    <div 
-                        id="infographicDiv"
-                        style={{
-                            width: '100%', height: '100%', padding: '20px', display: 'flex', flexDirection: 'column', position: 'relative', justifyContent: 'center'
-                        }}
-                    >
-                        <img id="infographics" src={infographicIcon} alt="" style={{maxWidth: '100%', maxHeight: '100%'}} />
-                        <div 
-                            style={{
-                                width: `${width * 0.164}px`, 
-                                height: `${width * 0.164}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.37) + top}px`, 
-                                left: `${(width * 0.07) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${(width * 0.164) / 4}px`
-                            }}
-                        >
-                            {views}
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.28}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.95) + top}px`, 
-                                left: `${(width * 0.03) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${((width * 0.164) + 20) / 7}px`,
-                                textAlign: 'center'
-                            }}
-                        >
-                            Dashboards Views
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.164}px`, 
-                                height: `${width * 0.164}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.37) + top}px`, 
-                                left: `${(width * 0.302) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${(width * 0.164) / 4}px`
-                            }}
-                        >
-                            {dashboards}
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.28}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: (width < 547) ? `${(height * -0.07) + top}px` : `${(height * 0.001) + top}px`, 
-                                left: `${(width * 0.24) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${((width * 0.164) + 20) / 7}px`,
-                                textAlign: 'center'
-                            }}
-                        >
-                            Dashboards Created
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.164}px`, 
-                                height: `${width * 0.164}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.37) + top}px`, 
-                                left: `${(width * 0.534) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${(width * 0.164) / 4}px`
-                            }}
-                        >
-                            {users}
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.28}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.95) + top}px`, 
-                                left: `${(width * 0.49) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${((width * 0.164) + 20) / 7}px`,
-                                textAlign: 'center'
-                            }}
-                        >
-                            Codin Users
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.164}px`, 
-                                height: `${width * 0.164}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: `${(height * 0.37) + top}px`, 
-                                left: `${(width * 0.766) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${(width * 0.164) / 4}px`
-                            }}
-                        >
-                            {sources}
-                        </div>
-                        <div 
-                            style={{
-                                width: `${width * 0.28}px`, 
-                                borderRadius: `${width * 0.164}px`, 
-                                position: 'absolute', 
-                                top: (width < 547) ? `${(height * -0.07) + top}px` : `${(height * 0.001) + top}px`, 
-                                left: `${(width * 0.70) + left}px`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: `${((width * 0.164) + 20) / 7}px`,
-                                textAlign: 'center'
-                            }}
-                        >
-                            Sources Connected
-                        </div>
-                    </div>
-                </StyledBox>
+                <InfographicsComponent width={width} height={height} top={top} left={left} views={views} dashboards={dashboards} users={users} sources={sources} />
             </div>
         );
     }

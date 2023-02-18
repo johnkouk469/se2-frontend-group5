@@ -1,12 +1,11 @@
 /* eslint-disable max-len */
 import React from 'react';
 import {
-    Drawer,
-    EditableText, InputGroup, Menu, MenuItem, Popover, Position, Tag, Tooltip, Spinner, ProgressBar, Text
+    Drawer, InputGroup,Position, Spinner
 } from '@blueprintjs/core';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
-    faBars, faChevronUp, faEraser, faFileExport, faFilter, faTimes, faChartBar
+    faChevronUp, faTimes
 } from '@fortawesome/free-solid-svg-icons';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
@@ -14,6 +13,7 @@ import {map} from 'rxjs/operators';
 import {ToasterBottom} from '../../../lib/toaster';
 import {findSource} from '../../../api/sources';
 import {formatDate} from '../../../lib/utilities';
+import RangeComponent from '../../range';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
@@ -271,186 +271,7 @@ class Logs extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-                <div
-                    style={{
-                        width: '100%',
-                        height: '25px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        background: '#16335B',
-                        borderTopLeftRadius: '10px',
-                        borderTopRightRadius: '10px',
-                        position: 'relative',
-                        fontSize: '13px'
-                    }}
-                >
-                    <EditableText disabled className="name-no-edit" placeholder="Component Name" value={name} />
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '2%',
-                            transform: 'translateY(-50%)',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Tooltip
-                            popoverClassName="item-info-tooltip"
-                            content={(
-                                <div>
-                                    <div>
-                                        <div>
-                                            <Text>{timeSpan}</Text>
-                                            <ProgressBar
-                                                intent="primary"
-                                                animate={false}
-                                                stripes={false}
-                                                value={timeSpanVal / maxintVal}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <Text>{minint}</Text>
-                                            <ProgressBar
-                                                intent="success"
-                                                animate={false}
-                                                stripes={false}
-                                                value={minintVal / maxintVal}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <Text>{meanint}</Text>
-                                            <ProgressBar
-                                                intent="warning"
-                                                animate={false}
-                                                stripes={false}
-                                                value={meanintVal / maxintVal}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <Text>{maxint}</Text>
-                                            <ProgressBar
-                                                intent="danger"
-                                                animate={false}
-                                                stripes={false}
-                                                value={maxintVal / maxintVal}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            interactionKind="hover"
-                        >
-                            <Tag
-                                round
-                                intent="primary"
-                                style={{
-                                    background: '#16335B',
-                                    color: '#aaaaaa',
-                                    fontSize: '13px'
-                                }}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faChartBar}
-                                    style={{
-                                        color: '#aaaaaa',
-                                        paddingRight: '4px',
-                                        fontSize: '13px',
-                                        cursor: 'pointer'
-                                    }}
-                                    onClick={this.filterMessages}
-                                />
-                                {counter}
-                            </Tag>
-                        </Tooltip>
-                    </div>
-                    {(width > 180 && !spinnerOpen)
-                    && (
-                        <div
-                            style={{
-                                height: '100%',
-                                position: 'absolute',
-                                top: '0px',
-                                left: '2%',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Tooltip content="Filter Messages">
-                                <FontAwesomeIcon
-                                    icon={faFilter}
-                                    style={{color: 'white', cursor: 'pointer'}}
-                                    onClick={this.filterMessages}
-                                />
-                            </Tooltip>
-                            <Tooltip content="Clear Messages">
-                                <FontAwesomeIcon
-                                    icon={faEraser}
-                                    style={{color: 'white', cursor: 'pointer', marginLeft: '5px'}}
-                                    onClick={this.clearMessages}
-                                />
-                            </Tooltip>
-                            <Tooltip content="Export to txt">
-                                <FontAwesomeIcon
-                                    icon={faFileExport}
-                                    style={{color: 'white', cursor: 'pointer', marginLeft: '5px'}}
-                                    onClick={this.exportMessages}
-                                />
-                            </Tooltip>
-                        </div>
-                    )}
-                    {(width < 180 && !spinnerOpen)
-                    && (
-                        <div
-                            style={{
-                                height: '100%',
-                                position: 'absolute',
-                                top: '0px',
-                                left: '2%',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Popover popoverClassName="custom-popover">
-                                <FontAwesomeIcon icon={faBars} style={{color: 'white', cursor: 'pointer'}} />
-                                <Menu>
-                                    <MenuItem text="Filter Messages" onClick={this.filterMessages} />
-                                    <MenuItem text="Clear Messages" onClick={this.clearMessages} />
-                                    <MenuItem text="Export to txt" onClick={this.exportMessages} />
-                                </Menu>
-                            </Popover>
-                        </div>
-                    )}
-                    {filter !== ''
-                    && (
-                        <div
-                            style={{
-                                height: '100%',
-                                position: 'absolute',
-                                top: '0px',
-                                left: 'calc(2% + 25px)',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Tooltip
-                                popoverClassName="item-info-tooltip"
-                                content="Clear filter"
-                                interactionKind="hover"
-                            >
-                                <FontAwesomeIcon icon={faFilter} style={{color: '#FF9D66', cursor: 'pointer'}} onClick={this.removeFilter} />
-                            </Tooltip>
-                        </div>
-                    )}
-                </div>
+                <RangeComponent value={name} content={timeSpan} timeSpanVal={timeSpanVal} maxIntVal={maxintVal} minInt={minint} minIntVal={minintVal} meanInt={meanint} meanIntVal={meanintVal} maxInt={maxint} onClick={this.filterMessages} counter={counter} />
                 <Drawer
                     isOpen={filterDrawerOpen}
                     position={Position.TOP}

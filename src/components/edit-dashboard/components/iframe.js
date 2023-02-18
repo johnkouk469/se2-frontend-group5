@@ -6,7 +6,7 @@ import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
-import Toolbar from "./toolbar";
+import Toolbar from './toolbar';
 
 class Iframe extends React.Component {
     constructor(props) {

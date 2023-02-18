@@ -27,9 +27,9 @@ import shareWhiteIcon from '../../assets/shareWhite.png';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 /* eslint-disable import/no-unresolved */
 import '../../../node_modules/react-resizable/css/styles.css';
-import {FormHeader, SettingsDiv, StyledButtonIcon, DashboardBox as StyledBox} from '../styled-components';
-
-
+import {
+    FormHeader, SettingsDiv, StyledButtonIcon, DashboardBox as StyledBox
+} from '../styled-components';
 
 const ButtonWithText = ({text, info, iconWhite, handler}) => (
     <Tooltip
@@ -183,25 +183,6 @@ export class DashboardPage extends React.Component {
     changePassword(event) {
         this.setState({tempPassword: event.target.value});
     }
-
-    // async fetchDashboard() {
-    //     this.changeSpinner(true);
-    //     const response = await getDashboard(this.dashboardId);
-    //     if (response.success) {
-    //         this.setState({
-    //             name: response.dashboard.name,
-    //             currentLayout: response.dashboard.layout,
-    //             items: response.dashboard.items
-    //         });
-    //     } else {
-    //         ToasterBottom.show({
-    //             intent: 'danger',
-    //             message: response.message || 'There was a problem trying to fetch the dashboard'
-    //         });
-    //     }
-
-    //     this.changeSpinner(false);
-    // }
 
     changeMapDimensions() {
         const mapWidth = document.getElementById('mainmap').offsetWidth;
@@ -476,17 +457,6 @@ export class DashboardPage extends React.Component {
                             </OrangeButton>
                         </div> 
                     </div>
-                    {/* <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center'}}>
-                        <InputGroup
-                            leftIcon="lock"
-                            placeholder="Password"
-                            onChange={this.changePassword}
-                            value={tempPassword}
-                            type="password"
-                            fill
-                            large
-                        />
-                    </div> */}
                     <div 
                         style={{
                             width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'

@@ -8,8 +8,8 @@ const AppContainerDiv = styled.div`
     width: 100%;
     height: 100%;
     min-height: 600px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background-image: ${`url(${backgroundImage})`};
     background-size: cover;
     display: block;
