@@ -1,8 +1,14 @@
 /* eslint-disable max-len */
+
+// http client and prefix url of the page
 import {api, prefixUrl} from '../lib/api-adapter';
 
+// client specific for the dashboards route
 const dashboardsApi = api.extend({prefixUrl: prefixUrl('dashboards')});
 
+/*
+    HTTP calls regarding the dashboards
+*/
 export const getDashboards = () => dashboardsApi.get('dashboards').json();
 
 export const createDashboard = (data) => dashboardsApi.post('create-dashboard', {json: data}).json();

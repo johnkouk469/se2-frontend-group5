@@ -1,8 +1,14 @@
 /* eslint-disable max-len */
+
+// http client and prefix url of the page
 import {api, prefixUrl} from '../lib/api-adapter';
 
+// client specific for the users route
 const usersApi = api.extend({prefixUrl: prefixUrl('users')});
 
+/*
+    HTTP calls regarding the users
+*/
 export const authenticateUser = (data) => usersApi.post('authenticate', {json: data}).json();
 
 export const forgotPassword = (data) => usersApi.post('resetpassword', {json: data}).json();

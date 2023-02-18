@@ -1,8 +1,14 @@
 /* eslint-disable max-len */
+
+// http client and prefix url of the page
 import {api, prefixUrl} from '../lib/api-adapter';
 
+// client specific for the sources route
 const sourcesApi = api.extend({prefixUrl: prefixUrl('sources')});
 
+/*
+    HTTP calls regarding the sources
+*/
 export const getSources = () => sourcesApi.get('sources').json();
 
 export const createSource = (data) => sourcesApi.post('create-source', {json: data}).json();
