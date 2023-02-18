@@ -12,3 +12,13 @@ export const StyledBox = styled(Box)`
     padding: 0px;
     position: relative;
 `;
+
+
+export const FullStyledBox = styled(Box)`
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+`;

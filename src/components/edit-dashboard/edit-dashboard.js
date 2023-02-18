@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
-import {Box} from 'rebass';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Collapse, Tooltip} from '@blueprintjs/core';
@@ -22,7 +21,7 @@ import importIcon from '../../assets/import.png';
 import importHoverIcon from '../../assets/importHover.png';
 import exportIcon from '../../assets/export.png';
 import exportHoverIcon from '../../assets/exportHover.png';
-
+import {DashboardBox as StyledBox} from '../styled-components';
 /* eslint-disable import/no-unresolved */
 import '../../../node_modules/react-grid-layout/css/styles.css';
 /* eslint-disable import/no-unresolved */
@@ -30,15 +29,6 @@ import '../../../node_modules/react-resizable/css/styles.css';
 
 const fileDownload = require('js-file-download');
 
-const StyledBox = styled(Box)`
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
-    position: relative;
-`;
 
 const DragComp = styled.div`
     width: 80%;

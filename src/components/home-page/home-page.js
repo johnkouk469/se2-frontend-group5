@@ -16,7 +16,7 @@ import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
 import bugIcon from '../../assets/bug.png';
 import bugHoverIcon from '../../assets/bugHover.png';
-import {Contact, BugDiv, ButtonsArea, StyledText, MenuButton, StyledIcon} from '../styled-components';
+import {Contact, BugDiv, ButtonsArea, StyledText, MenuButton, StyledIcon, LargeStyledHeader as StyledHeader, LargeStyledSubHeader as StyledSubHeader} from '../styled-components';
 
 const StyledBox = styled(Box)`
     height: 100%;
@@ -39,26 +39,6 @@ const StyledArea = styled(Box)`
     padding-top: 30px;
     padding-bottom: 30px;
     margin: auto!important;
-`;
-
-const StyledHeader = styled.h2`
-    text-align: center;
-    color: white;
-    margin: 0px;
-    font-size: 65px;
-    font-weight: 300;
-    letter-spacing: 5px;
-`;
-
-const StyledSubHeader = styled.h2`
-    width: 100%;
-    text-align: center;
-    color: #FF9D66;
-    margin: 0px;
-    margin-bottom: 20px;
-    font-size: 35px;
-    font-weight: normal;
-    letter-spacing: 2px;
 `;
 
 // eslint-disable-next-line no-unused-vars

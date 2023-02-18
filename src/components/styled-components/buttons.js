@@ -17,3 +17,16 @@ export const MenuButton = styled(Button)`
 export const StyledButtonIcon = styled.img.attrs((props) => ({src: props.icon}))`
     position: relative;
 `;
+
+export const NewButton = styled(Button)`
+    border: 2px solid transparent;
+    :hover {
+        border: 2px solid #FF9D66;
+        background: none!important;
+    }
+    :active {
+        top: 2px;
+        position: relative;
+    }
+`;
+

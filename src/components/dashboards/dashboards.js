@@ -3,9 +3,7 @@
 import React from 'react';
 import {Box} from 'rebass';
 import styled from 'styled-components';
-import {
-    Alert, Button, Text
-} from '@blueprintjs/core';
+import {Alert} from '@blueprintjs/core';
 import {Formik} from 'formik';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -27,6 +25,9 @@ import {
     BlueButton, BlueBorderButton, OrangeButton
 } from '../../lib/buttons';
 import dashboardIcon from '../../assets/dashboardBlue.png';
+import {
+    NewButton, DashboardsArea, FormHeader, StyledForm, StyledText, StyledArea, LargeStyledHeader as StyledHeader, LargeStyledSubHeader as StyledSubHeader
+} from '../styled-components';
 
 const StyledBox = styled(Box)`
     height: 100%;
@@ -37,58 +38,6 @@ const StyledBox = styled(Box)`
     overflow: auto;
 `;
 
-const StyledArea = styled(Box)`
-    width: 750px;
-    min-height: 500px;
-    display: block;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin: auto!important;
-`;
-
-const StyledHeader = styled.h2`
-    text-align: center;
-    color: white;
-    margin: 0px;
-    font-size: 65px;
-    font-weight: 300;
-    letter-spacing: 5px;
-`;
-
-const StyledSubHeader = styled.h2`
-    width: 100%;
-    text-align: center;
-    color: #FF9D66;
-    margin: 0px;
-    margin-bottom: 20px;
-    font-size: 35px;
-    font-weight: normal;
-    letter-spacing: 2px;
-`;
-
-const DashboardsArea = styled.div`
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, 150px);
-    align-items: center;
-    margin-top: 20px;
-    flex-wrap: wrap;
-`;
-
-const NewButton = styled(Button)`
-    border: 2px solid transparent;
-    :hover {
-        border: 2px solid #FF9D66;
-        background: none!important;
-    }
-    :active {
-        top: 2px;
-        position: relative;
-    }
-`;
-
 const StyledIcon = styled.img.attrs((props) => ({src: props.icon}))`
     width: 60px;
     height: 60px;
@@ -96,30 +45,6 @@ const StyledIcon = styled.img.attrs((props) => ({src: props.icon}))`
     flex-direction: column;
 `;
 
-const StyledText = styled(Text)`
-    color: white;
-    text-align: center;
-    font-weight: 550;
-    font-size: 16px;
-`;
-
-const FormHeader = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16335B;
-`;
-
-const StyledForm = styled.form`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
 
 export class DashboardsPage extends React.Component {
     constructor(props) {

@@ -2,8 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
-import {Box} from 'rebass';
-import styled from 'styled-components';
 import {connect} from 'react-redux';
 /* eslint-disable import/no-unresolved */
 import GridLayout from 'react-grid-layout';
@@ -29,17 +27,8 @@ import shareWhiteIcon from '../../assets/shareWhite.png';
 import '../../../node_modules/react-grid-layout/css/styles.css';
 /* eslint-disable import/no-unresolved */
 import '../../../node_modules/react-resizable/css/styles.css';
-import {FormHeader, SettingsDiv, StyledButtonIcon} from '../styled-components';
+import {FormHeader, SettingsDiv, StyledButtonIcon, DashboardBox as StyledBox} from '../styled-components';
 
-const StyledBox = styled(Box)`
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
-    position: relative;
-`;
 
 
 const ButtonWithText = ({text, info, iconWhite, handler}) => (
