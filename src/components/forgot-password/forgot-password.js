@@ -14,6 +14,11 @@ import infographicIcon from '../../assets/infographic.png';
 import contactIcon from '../../assets/contact.png';
 import contactHoverIcon from '../../assets/contactHover.png';
 
+/*
+ * Defintion of HTML tags used to render 
+ * the home page.
+ */
+
 const StyledBox = styled(Box)`
     height: 100%;
     width: 50%;
@@ -83,6 +88,9 @@ const OrangeLink = styled(StyledLink)`
     }
 `;
 
+/*
+ * Tag for the contact information button
+ */
 const ContactDiv = styled.div`
     width: 30px; 
     height: 30px; 
@@ -139,7 +147,14 @@ export class ForgotPasswordPage extends React.Component {
             height: img.offsetHeight
         });
     }
-
+    
+    /*
+     * Function that fetches the statistics from 
+     * the backend server and passing them to the 
+     * state. Returns a message if the
+     * communication with the backend server was
+     * unsuccessful.
+     */
     async fetchStatistics() {
         const response = await getStatistics();
         if (response.success) {
@@ -157,6 +172,23 @@ export class ForgotPasswordPage extends React.Component {
         }
     }
 
+    /*
+     * Renders the forgot password page.
+     *
+     * The forgot password page contains the 
+     * statistics of the Codin platform taken
+     * from the state of the ForgotPasswordPage class. 
+     * A header informing the users that they are
+     * seeing the forgot password page.
+     * A subheader guiding users to fill their username
+     * so that a link will be send to them givng them
+     * access to their account.
+     * A text input for username.
+     * A Send button. 
+     * A hyper link to redirect users back to the
+     * sign in page.
+     * A button for contact information.
+     */
     render() {
         const {users, dashboards, views, sources, top, left, width, height} = this.state;
 
