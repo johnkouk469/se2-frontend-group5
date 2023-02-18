@@ -1,3 +1,7 @@
+/*
+    User interface (UI) object
+    Functions: addError, removeError
+*/
 const ui = {
     addError: (error) => ({
         type: 'UI.ADD_ERROR',

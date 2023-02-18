@@ -1,3 +1,7 @@
+/*
+    Authentication object: the user is authenticated by giving data as input
+    Functions of object: set, clear and setUser 
+*/
 const auth = {
     set: (data) => ({
         type: 'AUTH.SET',

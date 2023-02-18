@@ -1,3 +1,6 @@
+/*
+    Package containing the authentication and user interface modules 
+*/
 import auth from './auth';
 import ui from './ui';
 
