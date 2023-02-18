@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
+/*
+    Imports
+*/
 import React from 'react';
 import {Box} from 'rebass';
 import styled from 'styled-components';
@@ -28,6 +31,9 @@ import {
 } from '../../lib/buttons';
 import dashboardIcon from '../../assets/dashboardBlue.png';
 
+/*
+    Styled box
+*/
 const StyledBox = styled(Box)`
     height: 100%;
     width: 100%;
@@ -37,6 +43,9 @@ const StyledBox = styled(Box)`
     overflow: auto;
 `;
 
+/*
+    Styled area
+*/
 const StyledArea = styled(Box)`
     width: 750px;
     min-height: 500px;
@@ -49,6 +58,9 @@ const StyledArea = styled(Box)`
     margin: auto!important;
 `;
 
+/*
+    Styled header
+*/
 const StyledHeader = styled.h2`
     text-align: center;
     color: white;
@@ -58,6 +70,9 @@ const StyledHeader = styled.h2`
     letter-spacing: 5px;
 `;
 
+/*
+    Styled subheader
+*/
 const StyledSubHeader = styled.h2`
     width: 100%;
     text-align: center;
@@ -69,6 +84,9 @@ const StyledSubHeader = styled.h2`
     letter-spacing: 2px;
 `;
 
+/*
+    Dashborads area
+*/
 const DashboardsArea = styled.div`
     width: 100%;
     grid-template-columns: repeat(auto-fill, 150px);
@@ -77,6 +95,9 @@ const DashboardsArea = styled.div`
     flex-wrap: wrap;
 `;
 
+/*
+    Button
+*/
 const NewButton = styled(Button)`
     border: 2px solid transparent;
     :hover {
@@ -89,6 +110,9 @@ const NewButton = styled(Button)`
     }
 `;
 
+/*
+    Styled icon
+*/
 const StyledIcon = styled.img.attrs((props) => ({src: props.icon}))`
     width: 60px;
     height: 60px;
@@ -96,6 +120,9 @@ const StyledIcon = styled.img.attrs((props) => ({src: props.icon}))`
     flex-direction: column;
 `;
 
+/*
+    Styled text
+*/
 const StyledText = styled(Text)`
     color: white;
     text-align: center;
@@ -103,6 +130,9 @@ const StyledText = styled(Text)`
     font-size: 16px;
 `;
 
+/*
+    Styled FormHeader
+*/
 const FormHeader = styled.div`
     width: 100%;
     display: flex;
@@ -114,6 +144,9 @@ const FormHeader = styled.div`
     color: #16335B;
 `;
 
+/*
+    Styled Form
+*/
 const StyledForm = styled.form`
     width: 100%;
     display: flex;
@@ -121,7 +154,13 @@ const StyledForm = styled.form`
     align-items: center;
 `;
 
+/*
+    Dashboard page class
+*/
 export class DashboardsPage extends React.Component {
+    /*
+        Constructor
+    */
     constructor(props) {
         super(props);
 
@@ -156,7 +195,10 @@ export class DashboardsPage extends React.Component {
         this.saveCloneDashboard = this.saveCloneDashboard.bind(this);
         this.closeClonePopup = this.closeClonePopup.bind(this);
     }
-
+    
+    /*
+        Check if the component mounts
+    */
     componentDidMount() {
         if (jwt_decode(this.token).exp < Date.now() / 1000) {
             this.clearAuth();
@@ -169,6 +211,9 @@ export class DashboardsPage extends React.Component {
         }
     }
 
+    /*
+        Fetch dashboards
+    */
     async fetchDashboards() {
         this.changeSpinner(true);
         const response = await getDashboards();
@@ -184,10 +229,16 @@ export class DashboardsPage extends React.Component {
         this.changeSpinner(false);
     }
 
+    /*
+        Change spinner value
+    */
     changeSpinner(value) {
         this.setState({spinnerOpen: value});
     }
 
+    /*
+        Create new dashboard
+    */
     newDashboard() {
         this.setState({
             formInfo: {name: ''},
@@ -195,6 +246,9 @@ export class DashboardsPage extends React.Component {
         });
     }
 
+    /*
+        Close form pop up
+    */
     closeFormPopup() {
         this.setState({
             formInfo: {name: ''},
@@ -202,6 +256,9 @@ export class DashboardsPage extends React.Component {
         });
     }
 
+    /*
+        Save form popup
+    */
     async saveFormPopup(formInfo) {
         this.changeSpinner(true);
         const response = await createDashboard(formInfo);
@@ -224,6 +281,9 @@ export class DashboardsPage extends React.Component {
         this.changeSpinner(false);
     }
 
+    /*
+        Clone pop up
+    */
     openClonePopup(event, ind) {
         event.stopPropagation();
         const {dashboards} = this.state;
@@ -232,6 +292,9 @@ export class DashboardsPage extends React.Component {
         this.setState({cloneNamePopupOpen: true});
     }
 
+    /*
+        Open delete pop up confirmation dialog
+    */
     openDeletePopup(event, ind) {
         event.stopPropagation();
         const {dashboards} = this.state;
@@ -240,12 +303,18 @@ export class DashboardsPage extends React.Component {
         this.setState({deleteDashboardPopupOpen: true});
     }
 
+    /*
+        Close delete pop up confirmation dialog
+    */
     closeDeletePopup() {
         this.deleteDashboardId = null;
         this.deleteDashboardName = '';
         this.setState({deleteDashboardPopupOpen: false});
     }
 
+    /*
+        Remove dashboard
+    */
     async removeDashboard() {
         const response = await deleteDashboard(this.deleteDashboardId);
         if (response.success) {
@@ -263,12 +332,18 @@ export class DashboardsPage extends React.Component {
         this.closeDeletePopup();
     }
 
+    /*
+        Open edit dashboard pop up 
+    */
     openEditDashboard(event, ind) {
         const {dashboards} = this.state;
         event.stopPropagation();
         this.pushHistory(`/dashboards/edit/${dashboards[ind].id}`);
     }
 
+    /*
+        Save cloned dashboard confirmation dialog
+    */
     async saveCloneDashboard(values) {
         this.changeSpinner(true);
         const response = await cloneDashboard(this.cloneId, values.name);
@@ -288,15 +363,24 @@ export class DashboardsPage extends React.Component {
         this.changeSpinner(false);
     }
 
+    /*
+        Close cloned dashboard confirmation dialog
+    */
     closeClonePopup() {
         this.cloneName = '';
         this.cloneId = '';
         this.setState({cloneNamePopupOpen: false});
     }
 
+    /*
+        Renders the dashboards page
+    */
     render() {    
         const {spinnerOpen, dashboards, formInfo, formPopupOpen, deleteDashboardPopupOpen, cloneNamePopupOpen} = this.state;
 
+        /*
+            Whole dashboards page component
+        */
         return ([
             <StyledBox>
                 <StyledArea>
@@ -484,6 +568,9 @@ export class DashboardsPage extends React.Component {
     }
 }
 
+/*
+    Exports
+*/
 export const mapState = (state) => ({user: state.auth.user, token: state.auth.token});
 
 export const mapDispatch = (dispatch) => ({

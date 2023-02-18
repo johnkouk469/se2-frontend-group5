@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+
+// Imports
 import React from 'react';
 import {Box} from 'rebass';
 import styled from 'styled-components';
@@ -30,6 +32,9 @@ import '../../../node_modules/react-grid-layout/css/styles.css';
 /* eslint-disable import/no-unresolved */
 import '../../../node_modules/react-resizable/css/styles.css';
 
+/*
+    Styling
+*/
 const FormHeader = styled.div`
     width: 100%;
     display: flex;
@@ -78,6 +83,9 @@ const ButtonWithText = ({text, info, iconWhite, handler}) => (
 
 export class DashboardPage extends React.Component {
     constructor(props) {
+        /*
+            Dashboards page methods
+        */
         super(props);
 
         this.pushHistory = props.history.push;
@@ -113,12 +121,18 @@ export class DashboardPage extends React.Component {
         this.copyClipboard = this.copyClipboard.bind(this);
     }
 
+    /*
+        Check if the component mounted
+    */
     componentDidMount() {
         this.checkPassword();
         this.changeMapDimensions();
         window.addEventListener('resize', this.changeMapDimensions);
     }
 
+    /*
+        Check if the component mounted
+    */
     componentDidUpdate(__, prevState) {
         const {user} = this.state;
         if (user !== prevState.user) {
@@ -126,18 +140,30 @@ export class DashboardPage extends React.Component {
         }
     }
 
+    /*
+        Check if the component unmounted
+    */
     componentWillUnmount() {
         window.removeEventListener('resize', this.changeMapDimensions);
     }
 
+    /*
+        Get the derived state
+    */
     static getDerivedStateFromProps(props) {
         return {user: props.user};
     }
 
+    /*
+        Change the spinner value
+    */
     changeSpinner(value) {
         this.setState({spinnerOpen: value});
     }
 
+    /*
+        Change the password value
+    */
     async checkPassword() {
         this.changeSpinner(true);
         const {user} = this.state;
@@ -176,11 +202,16 @@ export class DashboardPage extends React.Component {
         this.changeSpinner(false);
     }
 
+    /*
+        Declare password end of line
+    */
     closePassword() {
         this.setState({passwordPopupOpen: false});
         this.pushHistory('/');
     }
-
+/*
+        Confirm the spinner value
+    */
     async confirmPassword() {
         const {tempPassword} = this.state;
         if (tempPassword !== '') {
@@ -211,6 +242,9 @@ export class DashboardPage extends React.Component {
         }
     }
 
+    /*
+        Change password on event
+    */
     changePassword(event) {
         this.setState({tempPassword: event.target.value});
     }
@@ -234,19 +268,31 @@ export class DashboardPage extends React.Component {
     //     this.changeSpinner(false);
     // }
 
+    /*
+        Change the spinner value
+    */
     changeMapDimensions() {
         const mapWidth = document.getElementById('mainmap').offsetWidth;
         this.setState({mapWidth});
     }
 
+    /*
+        Open shared dashboard state pop up
+    */
     openSharePopup() {
         this.setState({shareDashboardPopupOpen: true, tempSharePassword: ''});
     }
 
+    /*
+        Close shared dashboard state pop up
+    */
     closeSharePopup() {
         this.setState({shareDashboardPopupOpen: false});
     }
 
+    /*
+        Share shared dashboard state pop up
+    */
     async shareDashboard() {
         const response = await selectShareDashboard(this.dashboardId);
         if (response.success) {
@@ -259,10 +305,16 @@ export class DashboardPage extends React.Component {
         }
     }
 
+    /*
+        Change the shared state of the dashboard state 
+    */
     changeSharePassword(event) {
         this.setState({tempSharePassword: event.target.value});
     }
 
+    /*
+        Submit shared dashboard state 
+    */
     async submitSharePassword() {
         const {tempSharePassword} = this.state;
         if (tempSharePassword !== '') {
@@ -282,6 +334,9 @@ export class DashboardPage extends React.Component {
         }
     }
 
+    /*
+        Copy the dashboard password to clipboard
+    */
     copyClipboard() {
         const el = document.createElement('textarea');
         el.value = `${process.env.REACT_APP_PLATFORM_URL}/dashboards/${this.dashboardId}`;
@@ -295,6 +350,9 @@ export class DashboardPage extends React.Component {
         });
     }
 
+    /*
+        Render the dashboard
+    */
     render() {    
         const {user, owner, shared, spinnerOpen, mapWidth, name, currentLayout, items, passwordPopupOpen, tempPassword, shareDashboardPopupOpen, tempSharePassword} = this.state;
 
@@ -319,11 +377,17 @@ export class DashboardPage extends React.Component {
             );
         });
 
+        /*
+            Header of dashboard components
+        */
         const changeHeaderButtons = [
             {iconWhite: editWhiteIcon, info: 'Edit dashboard', handler: () => this.pushHistory(`/dashboards/edit/${this.dashboardId}`)},
             {iconWhite: shareWhiteIcon, info: 'Share dashboard', handler: this.openSharePopup}
         ];
         
+        /*
+            All subcomponents of the dashboard component
+        */
         return ([
             <StyledBox key="mainarea">
                 <div 
