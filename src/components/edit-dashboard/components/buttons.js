@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
+/*
+    Configures all button components in the edit dashboard page
+    */ 
 import React from 'react';
 import styled from 'styled-components';
 import {

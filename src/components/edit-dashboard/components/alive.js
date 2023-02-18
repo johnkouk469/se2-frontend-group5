@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 
+// Styling
 const FormHeader = styled.div`
     width: 100%;
     display: flex;
@@ -32,7 +33,7 @@ const SettingsDiv = styled.div`
     flex-direction: column;
     align-items: center;
 `;
-
+// Configure the date format
 const formatDate = (date) => {
     const day = ((String(date.getDate())).length === 1) ? `0${String(date.getDate())}` : String(date.getDate());
     const month = ((String(date.getMonth() + 1)).length === 1) ? `0${String(date.getMonth() + 1)}` : String(date.getMonth() + 1);
@@ -44,6 +45,9 @@ const formatDate = (date) => {
     return (`${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`);
 };
 
+/*
+    Component to check if a broker topic is alive
+*/
 class Alive extends React.Component {
     constructor(props) {
         super(props);
@@ -97,22 +101,22 @@ class Alive extends React.Component {
             timeout: props.initialState.timeout || 1000
         };
     }
-
+// update the state of the broker component
     sendUpdate(key, value) {
         const {id} = this.state;
         this.updateItem(id, key, value);
     }
-
+// delete the broker component
     delete() {
         const {id} = this.state;
         this.setState({deletePopupOpen: false});
         this.deleteItem(id);
     }
-
+// rename the broker component
     changeName(value) {
         this.sendUpdate('name', value);
     }
-
+// opens broker pop up
     openPopup() {
         const {source, topic, timeout} = this.state;
         this.setState({
@@ -122,7 +126,7 @@ class Alive extends React.Component {
             tempTimeout: timeout
         });
     }
-
+// closes broker pop up
     closePopup() {
         this.setState({
             popoverOpen: false,
@@ -131,7 +135,7 @@ class Alive extends React.Component {
             tempTimeout: 1000
         });
     }
-
+// closes confirm pop up
     closeConfirmPopup() {
         const {tempSource, tempTopic, tempTimeout} = this.state;
         this.sendUpdate('source', tempSource);
@@ -139,28 +143,28 @@ class Alive extends React.Component {
         this.sendUpdate('timeout', tempTimeout);
         this.setState({popoverOpen: false});
     }
-
+// opens delete confirmation dialog
     openDelete() {
         this.setState({deletePopupOpen: true});
     }
-
+// closes delete confirmation dialog
     closeDelete() {
         this.setState({deletePopupOpen: false});
     }
-
+// changes source connected to the broker
     changeSource(value) {
         this.setState({tempSource: value});
     }
-
+// changes the broker's topic
     changeTopic(event) {
         event.stopPropagation();
         this.setState({tempTopic: event.target.value});
     }
-
+// changes the broker's timeout
     changeTimeout(value) {
         this.setState({tempTimeout: value});
     }
-
+// resizes the broker component
     resize(width, height) {
         let fontSize = 16;
         let fontSize2 = 16;
@@ -180,13 +184,13 @@ class Alive extends React.Component {
             fontSize2
         });
     }
-
+// clones the broker component
     clone() {
         const {id} = this.state;
         this.closePopup();
         this.cloneComponent(id);
     }
-
+// renders the broker component
     render() {
         const {id, availableSources, name, popoverOpen, deletePopupOpen, tempSource, tempTopic, tempTimeout, lastSend, activeText, smallIcon, fontSize, fontSize2} = this.state;
 
@@ -431,6 +435,9 @@ class Alive extends React.Component {
     }
 }
 
+/*
+    The actual component
+*/
 const createAlive = ({id, type, initialState, updateItem, deleteItem, cloneComponent, sources}) => (
     <Alive
         id={id}

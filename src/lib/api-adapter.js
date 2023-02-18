@@ -1,4 +1,9 @@
 /* eslint-disable max-len */
+/*
+    Declares the prefix url and the HTTP client
+    Defines before requests and after requests actions
+*/
+
 import ky from 'ky';
 import {path} from 'ramda';
 import {store} from '../plugins/initialize-store';
@@ -6,7 +11,9 @@ import actions from '../actions';
 import {checkIsAuthenticated} from './utilities';
 import {ToasterBottom} from './toaster';
 
+
 const serverUrl = process.env.REACT_APP_SERVER_URL;
+
 
 export const prefixUrl = (route) => `${serverUrl}/${route}`;
 export const api = ky.create({
