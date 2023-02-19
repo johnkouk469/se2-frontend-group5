@@ -13,6 +13,7 @@ import {
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import ConfirmationButtonsComponent from '../../confirmation-buttons';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -495,26 +496,7 @@ class Buttons extends React.Component {
                             Add Button
                         </OrangeButton>
                     </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
+                    <ConfirmationButtonsComponent onCancel={this.closePopup} onSave={this.closeConfirmPopup} />
                 </SettingsDiv>
             </PortalOverflowOverlay>,
             <PortalOverflowOverlay key="button-settings" id="button-settings" isOpen={buttonPopoverOpen} width="450px" height="auto" background="white" borderRadius="10px" padding="20px" marginLeft="auto" marginRight="auto" color="black">

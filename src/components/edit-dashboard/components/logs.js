@@ -17,6 +17,7 @@ import logsPlaceholder from '../../../assets/logsPlaceholder.png';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import ConfirmationButtonsComponent from '../../confirmation-buttons';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -342,26 +343,7 @@ class Logs extends React.Component {
                             Edit Keywords
                         </OrangeButton>
                     </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
+                    <ConfirmationButtonsComponent onCancel={this.closePopup} onSave={this.closeConfirmPopup} />
                 </SettingsDiv>
             </PortalOverflowOverlay>,
             <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />,

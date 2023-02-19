@@ -19,6 +19,7 @@ import {formatDate} from '../../../lib/utilities';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import PlotComponent from '../../plot';
+import ConfirmationButtonsComponent from '../../confirmation-buttons';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -680,26 +681,7 @@ class Plot extends React.Component {
                             Add Plot
                         </OrangeButton>
                     </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
+                    <ConfirmationButtonsComponent onCancel={this.closePopup} onSave={this.closeConfirmPopup} />
                 </SettingsDiv>
             </PortalOverflowOverlay>,
             <PortalOverflowOverlay key="plot-settings" id="plot-settings" isOpen={plotPopoverOpen} width="450px" height="auto" background="white" borderRadius="10px" padding="20px" marginLeft="auto" marginRight="auto" color="black">

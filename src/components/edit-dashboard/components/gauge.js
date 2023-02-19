@@ -9,11 +9,12 @@ import ReactResizeDetector from 'react-resize-detector';
 /* eslint-disable import/no-unresolved */
 import GaugeChart from 'react-gauge-chart';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
-import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
+import {BlueBorderButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import UpdateSourceComponent from './update-source';
+import ConfirmationButtonsComponent from '../../confirmation-buttons';
 
 class Gauge extends UpdateSourceComponent {
     constructor(props) {
@@ -432,26 +433,7 @@ class Gauge extends UpdateSourceComponent {
                             />
                         </div>
                     </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
+                    <ConfirmationButtonsComponent onCancel={this.closePopup} onSave={this.closeConfirmPopup} />
                 </SettingsDiv>
             </PortalOverflowOverlay>,
             <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />

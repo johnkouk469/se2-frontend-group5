@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 import React from 'react';
-import {
-    InputGroup
-} from '@blueprintjs/core';
+import {InputGroup} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
-import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import ConfirmationButtonsComponent from '../../confirmation-buttons';
 
 class Text extends React.Component {
     constructor(props) {
@@ -172,26 +170,7 @@ class Text extends React.Component {
                             large
                         />
                     </div>
-                    <div
-                        style={{
-                            width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', marginTop: '10px'
-                        }}
-                    >
-                        <BlueBorderButton
-                            id="cancel"
-                            type="button"
-                            onClick={this.closePopup}
-                        >
-                            Cancel
-                        </BlueBorderButton>
-                        <BlueButton
-                            id="save"
-                            type="button"
-                            onClick={this.closeConfirmPopup}
-                        >
-                            Save
-                        </BlueButton>
-                    </div>
+                    <ConfirmationButtonsComponent onCancel={this.closePopup} onSave={this.closeConfirmPopup} />
                 </SettingsDiv>
             </PortalOverflowOverlay>,
             <AlertComponent open={deletePopupOpen} onCancel={this.closeDelete} onConfirm={this.delete} name={name} />
