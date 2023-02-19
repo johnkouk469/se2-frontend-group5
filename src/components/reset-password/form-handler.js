@@ -21,6 +21,9 @@ export const handleSubmit = async (values, {setSubmitting}, token, {pushHistory}
         });
         pushHistory('/');
         setSubmitting(false);
-    } catch (error) { }
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+    }
     setSubmitting(false);
 };

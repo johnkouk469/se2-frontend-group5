@@ -218,7 +218,9 @@ export class SourcesPage extends React.Component {
             this.timeouts[s.name] = setTimeout(() => {
                 rxStomp.deactivate();
             }, 5000);
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     changeSpinner(value) {
