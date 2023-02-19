@@ -1,33 +1,27 @@
-/* eslint-disable no-undef */
-// describe('Initial visit', () => {
-//     it('navigates to sign in screen', async () => {
-//         cy.visit('http://localhost:3002');
-//         await cy.get('#test-username').type('karanikio');
-//         await cy.get('#test-password').type('12345');
-//     });
-// });
-
+/* eslint-disable no-undef,quotes */
+import {login, resp} from './initial.cy';
 
 describe('Navigate to dashboards screen', () => {
+    const dashboards = [
+        {
+            id: "639475b812ff010f4dfc3c18",
+            name: "dashboard1",
+            views: 0,
+        }
+    ];
+    
     beforeEach(() => {
-        const token = JSON.stringify({
-            token: JSON.stringify(Cypress.env('TEST_TOKEN')),
-            user: JSON.stringify({
-                username: Cypress.env('TEST_USERNAME'),
-                id: Cypress.env('TEST_ID'),
-                email: Cypress.env('TEST_EMAIL')
-            }),
-            _persist: JSON.stringify({version: -1, rehydrated: true})
-        });
-        cy.visit('http://localhost:3002');
-        cy.window().then((win) => win.localStorage.setItem('persist:codin-auth', token));
+        cy.clearLocalStorage();
+        login();
+        cy.intercept('/dashboards/dashboards', dashboards);
+        cy.intercept('/general/statistics', resp);
+        cy.intercept('/dashboards/create-dashboard', {success: true});
     });
 
     it('Navigate to dashboards screen if user is already authenticated', () => {
         cy.visit('http://localhost:3002/home');
         cy.contains('My Dashboards').click();
     });
-
 
     it('Add new dashboard and cancel', () => {
         cy.visit('http://localhost:3002/home');
@@ -51,5 +45,4 @@ describe('Navigate to dashboards screen', () => {
         cy.get('form#signInForm').contains('Save').should('exist');
         cy.get('form#signInForm').contains('Save').click();
     });
-        
 });

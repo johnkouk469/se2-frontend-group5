@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 
-
-
-function login() {
+export function login() {
     const user = {
         username: Cypress.env('TEST_USERNAME'),
         id: '63e929ff3edf5aa9d017315a',
@@ -24,7 +22,7 @@ function login() {
     cy.get('#test-username').type(Cypress.env('TEST_USERNAME'));
     cy.get('#test-password').type(`${Cypress.env('TEST_PASSWORD')}{enter}`);
 }
-const resp = {
+export const resp = {
     success: true,
     users: 2,
     dashboards: 3,
