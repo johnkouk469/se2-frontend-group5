@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    ButtonGroup, EditableText, TextArea, Tag
+    ButtonGroup, EditableText, TextArea
 } from '@blueprintjs/core';
 import {
     BlueBorderButton, BlueButton, CustomButton
@@ -12,9 +12,9 @@ import {ToasterBottom} from '../../../lib/toaster';
 import {findSource} from '../../../api/sources';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import {FormHeader, SettingsDiv} from '../../styled-components';
+import TagComponent from '../../tag';
 
 const mqtt = require('mqtt');
-
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -247,28 +247,7 @@ class Buttons extends React.Component {
                     }}
                 >
                     <EditableText disabled className="name-no-edit" placeholder="Component Name" value={name} />
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '2%',
-                            transform: 'translateY(-50%)',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Tag
-                            round
-                            intent="primary"
-                            style={{
-                                background: '#16335b',
-                                color: '#888888',
-                                fontSize: '13px'
-                            }}
-                        >
-                            {counter}
-                        </Tag>
-                    </div>
+                    <TagComponent counter={counter} />
                 </div>
                 <div
                     id={`buttonsDiv_${id}`}

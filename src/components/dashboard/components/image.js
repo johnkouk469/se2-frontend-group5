@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import {
-    EditableText, Tag, Spinner
-} from '@blueprintjs/core';
+import {EditableText, Spinner} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {map} from 'rxjs/operators';
@@ -10,6 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExpand, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import SourceConnectedComponent from '../../source-connected';
+import TagComponent from '../../tag';
 
 const objectPath = require('object-path');
 
@@ -154,28 +153,7 @@ class Image extends SourceConnectedComponent {
                     }}
                 >
                     <EditableText disabled className="name-no-edit" placeholder="Component Name" value={name} />
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '2%',
-                            transform: 'translateY(-50%)',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Tag
-                            round
-                            intent="primary"
-                            style={{
-                                background: '#16335b',
-                                color: '#888888',
-                                fontSize: '13px'
-                            }}
-                        >
-                            {counter}
-                        </Tag>
-                    </div>
+                    <TagComponent counter={counter} />
                 </div>
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (

@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import {
-    EditableText, Spinner, Tag
+    EditableText, Spinner
 } from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
@@ -13,6 +13,7 @@ import '../../../../node_modules/react-vis/dist/style.css';
 import {formatDate} from '../../../lib/utilities';
 import SourceConnectedComponent from '../../source-connected';
 import PlotComponent from '../../plot';
+import TagComponent from "../../tag";
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
@@ -217,7 +218,14 @@ class Plot extends SourceConnectedComponent {
         return (
             <div
                 style={{
-                    width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
+                    width: '100%',
+                    height: '100%',
+                    background: 'white',
+                    padding: '1%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: '10px',
+                    fontSize: '16px'
                 }}
             >
                 <div
@@ -236,28 +244,7 @@ class Plot extends SourceConnectedComponent {
                     }}
                 >
                     <EditableText disabled className="name-no-edit" placeholder="Component Name" value={name} />
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '2%',
-                            transform: 'translateY(-50%)',
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <Tag
-                            round
-                            intent="primary"
-                            style={{
-                                background: '#16335b',
-                                color: '#888888',
-                                fontSize: '13px'
-                            }}
-                        >
-                            {counter}
-                        </Tag>
-                    </div>
+                    <TagComponent counter={counter} />
                 </div>
                 <ReactResizeDetector onResize={this.resize}>
                     {() => (
