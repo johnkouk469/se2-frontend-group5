@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-console */
 import React from 'react';
 import {Spinner} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
@@ -75,7 +75,9 @@ class Json extends SourceConnectedComponent {
                     maxintVal: this.maxInterval
                 });
             }
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     resize(width, height) {

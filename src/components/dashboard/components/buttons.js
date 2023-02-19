@@ -1,10 +1,11 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions,no-console */
 /* eslint-disable max-len */
 import React from 'react';
 import styled from 'styled-components';
 import {
     ButtonGroup, EditableText, TextArea
 } from '@blueprintjs/core';
+import {RxStomp} from '@stomp/rx-stomp';
 import {
     BlueBorderButton, BlueButton, CustomButton
 } from '../../../lib/buttons';
@@ -133,7 +134,9 @@ class Buttons extends React.Component {
             this.rxStomps[ind] = new RxStomp.RxStomp();
             this.rxStomps[ind].configure(stompConfig);
             this.rxStomps[ind].activate();
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectMqttSource(source, ind) {
@@ -144,7 +147,9 @@ class Buttons extends React.Component {
             };
 
             this.mqttClients[ind] = mqtt.connect(source.url, config);
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async connectToTopics() {
@@ -189,7 +194,9 @@ class Buttons extends React.Component {
                 this.mqttClients[buttonSelected].publish(topics[buttonSelected], payloads[buttonSelected]);
             }
             this.setState({counter: counter + 1, buttonSelected: null});
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     openButtonPopup(ind) {

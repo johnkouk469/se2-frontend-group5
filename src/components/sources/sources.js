@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-console */
 import React from 'react';
 import styled from 'styled-components';
 import {
@@ -150,7 +150,9 @@ export class SourcesPage extends React.Component {
                 } else {
                     this.checkMQTTConnectivity(s, ind);
                 }
-            } catch {}
+            } catch (e) {
+                console.log(e);
+            }
         });
     }
 
@@ -174,12 +176,16 @@ export class SourcesPage extends React.Component {
                 client.end();
                 try {
                     clearTimeout(this.timeouts[s.name]);
-                } catch {}
+                } catch (e) {
+                    console.log(e);
+                }
             });   
             this.timeouts[s.name] = setTimeout(() => {
                 client.end();
             }, 5000);
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     checkStompConnectivity(s, ind) {
@@ -202,7 +208,9 @@ export class SourcesPage extends React.Component {
                 rxStomp.deactivate();
                 try {
                     clearTimeout(this.timeouts[s.name]);
-                } catch {}
+                } catch (e) {
+                    console.log(e);
+                }
             });
             rxStomp.watchForReceipt(receiptId, () => {
                 rxStomp.publish({destination: '/topic/heartbeat', body: JSON.stringify({heartbeat: true})});

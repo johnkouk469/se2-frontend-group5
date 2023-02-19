@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-console */
 import React from 'react';
 import {EditableText, Spinner} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
@@ -6,6 +6,7 @@ import ReactResizeDetector from 'react-resize-detector';
 import {map} from 'rxjs/operators';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faExpand, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {RxStomp} from '@stomp/rx-stomp';
 import {PortalOverflowOverlay} from '../../../lib/overlays';
 import SourceConnectedComponent from '../../source-connected';
 import TagComponent from '../../tag';
@@ -49,7 +50,9 @@ class Image extends SourceConnectedComponent {
             const newCounter = counter + 1;
             const image = objectPath.get(payload, variable);
             this.setState({image: `data:image/jpg;base64,${image}`, counter: newCounter});
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectStompSource(source) {

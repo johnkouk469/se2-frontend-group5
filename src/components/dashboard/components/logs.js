@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-console */
 import React from 'react';
 import {
     Drawer, InputGroup,Position, Spinner
@@ -98,7 +98,9 @@ class Logs extends SourceConnectedComponent {
                     messagesList.scrollTop = messagesList.scrollHeight;
                 }
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     filterMessages() {
@@ -157,7 +159,9 @@ class Logs extends SourceConnectedComponent {
                     }
                     filteredLogs.push({message: l.message, date: l.date, color});
                 }
-            } catch {}
+            } catch (e) {
+                console.log(e);
+            }
         });
 
         return (

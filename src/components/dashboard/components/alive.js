@@ -96,7 +96,9 @@ class Alive extends SourceConnectedComponent {
                 maxintVal: this.maxInterval,
                 counter: newCounter
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     resize(width, height) {

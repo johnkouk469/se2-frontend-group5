@@ -1,19 +1,18 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions,no-console */
 /* eslint-disable max-len */
 import React from 'react';
-import {
-    EditableText, Spinner
-} from '@blueprintjs/core';
+import {EditableText, Spinner} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
 import ReactResizeDetector from 'react-resize-detector';
 import {map} from 'rxjs/operators';
 import {LineSeries, VerticalBarSeries} from 'react-vis';
 
 import '../../../../node_modules/react-vis/dist/style.css';
+import {RxStomp} from '@stomp/rx-stomp';
 import {formatDate} from '../../../lib/utilities';
 import SourceConnectedComponent from '../../source-connected';
 import PlotComponent from '../../plot';
-import TagComponent from "../../tag";
+import TagComponent from '../../tag';
 
 const objectPath = require('object-path');
 const mqtt = require('mqtt');
@@ -93,7 +92,9 @@ class Plot extends SourceConnectedComponent {
                 values[ind].shift();
             }
             this.setState({values, counter: newCounter});
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectStompSource(source) {
@@ -124,7 +125,9 @@ class Plot extends SourceConnectedComponent {
             this.rxStomp.watchForReceipt(initialReceiptId, () => {
                 this.changeSpinner(false);
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectMqttSource(source) {
@@ -153,7 +156,9 @@ class Plot extends SourceConnectedComponent {
                     }
                 });
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     resize(width, height) {
@@ -255,7 +260,7 @@ class Plot extends SourceConnectedComponent {
                                         <Spinner intent="primary" size={Math.min(width / 10, height / 2)} />
                                     </div>
                                 )}
-                            <PlotComponent height={height} width={width} lastDrawLocation={lastDrawLocation} verticalGrid={verticalGrid} horizontalGrid={horizontalGrid} plots={plots} xAxis={xAxis} tickFormat={(v) => formatDate(v, true)} tickValues={xTickValues} yAxis={yAxis} legend={legend} items={legendItems} legendPosition={legendPosition} onBrushEnd={(area) => this.onBrushEnd(area)} onDrag={(area) => {this.onDrag(lastDrawLocation, area); }} />
+                            <PlotComponent height={height} width={width} lastDrawLocation={lastDrawLocation} verticalGrid={verticalGrid} horizontalGrid={horizontalGrid} plots={plots} xAxis={xAxis} tickFormat={(v) => formatDate(v, true)} tickValues={xTickValues} yAxis={yAxis} legend={legend} items={legendItems} legendPosition={legendPosition} onBrushEnd={(area) => this.onBrushEnd(area)} onDrag={(area) => { this.onDrag(lastDrawLocation, area); }} />
                         </div>
                     )}
                 </ReactResizeDetector>

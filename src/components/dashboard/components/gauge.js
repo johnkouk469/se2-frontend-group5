@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-console */
 import React from 'react';
 import {Spinner} from '@blueprintjs/core';
 /* eslint-disable import/no-unresolved */
@@ -61,7 +61,9 @@ class Gauge extends SourceConnectedComponent {
                 maxintVal: this.maxInterval,
                 counter: newCounter
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     resize(width, height) {

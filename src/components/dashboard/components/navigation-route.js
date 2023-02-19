@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase,no-console */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
@@ -15,6 +15,7 @@ import {
     faMapMarkerAlt, faThumbtack, faTimesCircle, faExpand, faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {RxStomp} from '@stomp/rx-stomp';
 import {
     BlueBorderButton, BlueButton, OrangeButton, RedBorderButton
 } from '../../../lib/buttons';
@@ -34,7 +35,6 @@ const FormSubHeader = styled.div`
     font-size: 18px;
     color: #16335B;
 `;
-
 
 const CustomCanvas = styled.canvas`
     z-index: 3;
@@ -224,7 +224,9 @@ class NavigationRoute extends SourceConnectedComponent {
                     this.resize(imageDiv.offsetWidth, imageDiv.offsetHeight);
                 }, 200);
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     messageReceivedPose(payload) {
@@ -240,7 +242,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 origin,
                 resolution
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     messageReceivedPath(payload) {
@@ -259,7 +263,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 origin,
                 resolution
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     messageReceivedAnnotations(payload) {
@@ -278,7 +284,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 origin,
                 resolution
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectStompSource(source) {
@@ -317,7 +325,9 @@ class NavigationRoute extends SourceConnectedComponent {
             this.rxStomp.watch(`/topic/${getAnnotationsTopic}`).pipe(map((message) => JSON.parse(message.body))).subscribe((payload) => {
                 this.messageReceivedAnnotations(payload);
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     connectMqttSource(source) {
@@ -352,7 +362,9 @@ class NavigationRoute extends SourceConnectedComponent {
                     this.messageReceivedAnnotations(JSON.parse(message.toString()));
                 }
             });
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     resize(width, height) {
@@ -392,7 +404,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 this.mqttClient.publish(setAnnotationGoalTopic, JSON.stringify({name: annotations[ind].name}));
             }
             this.setState({selectAnnotationPopupOpen: false});
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     goToPoint() {
@@ -409,7 +423,9 @@ class NavigationRoute extends SourceConnectedComponent {
             } else if (this.mqttClient !== null) {
                 this.mqttClient.publish(cancelGoalTopic, JSON.stringify({}));
             }
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     closeAnnotate() {
@@ -431,7 +447,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 this.mqttClient.publish(changeAnnotationsTopic, JSON.stringify({mode: 'delete', name: annotations[this.tempDeleteAnnotation].name}));
             }
             this.setState({deleteAnnotationPopupOpen: false});
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     sendPointGoal(point) {
@@ -444,7 +462,9 @@ class NavigationRoute extends SourceConnectedComponent {
             } else if (this.mqttClient !== null) {
                 this.mqttClient.publish(setGoalTopic, JSON.stringify({x: newX, y: newY, theta: 0}));
             }
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     closeGotoCanvas() {
@@ -472,7 +492,9 @@ class NavigationRoute extends SourceConnectedComponent {
                 this.mqttClient.publish(changeAnnotationsTopic, JSON.stringify({mode: 'add', name: tempAnnotationName, pose: {x: newX, y: newY}}));
             }
             this.cancelAnnotation();
-        } catch {}
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     openDeleteAnnotation(ind) {
