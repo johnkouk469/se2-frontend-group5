@@ -313,6 +313,7 @@ class Plot extends BaseEditComponent {
         tempSmooths[ind] = !(tempSmooths[ind]);
         this.setState({tempSmooths});
     }
+
     resize(width, height) {
         this.setState({width, height});
     }
