@@ -39,14 +39,8 @@ class Alive extends SourceConnectedComponent {
             height: 50
         };
         this.interval = null;
-        this.rxStomp = null;
-        this.mqttClient = null;
-
-        this.changeSpinner = this.changeSpinner.bind(this);
+        this.init();
         this.messageReceived = this.messageReceived.bind(this);
-        this.connectStompSource = this.connectStompSource.bind(this);
-        this.connectMqttSource = this.connectMqttSource.bind(this);
-        this.connectToTopic = this.connectToTopic.bind(this);
         this.resize = this.resize.bind(this);
     }
 
@@ -89,25 +83,7 @@ class Alive extends SourceConnectedComponent {
 
     messageReceived() {
         try {
-            const {counter} = this.state;
-            const newCounter = counter + 1;
-            let ts = (new Date() - this.prevTime) / 1000.0;
-            if (this.prevTime < 0) {
-                ts = '-';
-                this.minInterval = 1000000000;
-                this.maxInterval = 0;
-                this.meanInterval = 0;
-            } else {
-                if (ts < this.minInterval) {
-                    this.minInterval = ts;
-                }
-                if (ts > this.maxInterval) {
-                    this.maxInterval = ts;
-                }
-                this.meanInterval += ts;
-            }
-            this.prevTime = new Date();
-
+            const {newCounter, ts} = this.state;
             this.setState({
                 lastSend: new Date(),
                 timeSpan: `Last interval: ${ts} sec`,

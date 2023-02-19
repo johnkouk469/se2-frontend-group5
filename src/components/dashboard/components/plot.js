@@ -77,32 +77,9 @@ class Plot extends SourceConnectedComponent {
             height: 50,
             lastDrawLocation: null
         };
-        this.rxStomp = null;
-        this.mqttClient = null;
-
-        this.changeSpinner = this.changeSpinner.bind(this);
+        this.init();
         this.messageReceived = this.messageReceived.bind(this);
-        this.connectStompSource = this.connectStompSource.bind(this);
-        this.connectMqttSource = this.connectMqttSource.bind(this);
-        this.connectToTopic = this.connectToTopic.bind(this);
         this.resize = this.resize.bind(this);
-    }
-
-    componentDidMount() {
-        this.connectToTopic();
-    }
-
-    componentWillUnmount() {
-        if (this.rxStomp !== null) {
-            this.rxStomp.deactivate();
-        }
-        if (this.mqttClient !== null) {
-            this.mqttClient.end();
-        }
-    }
-
-    changeSpinner(value) {
-        this.setState({spinnerOpen: value});
     }
 
     messageReceived(payload, ind) {

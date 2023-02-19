@@ -116,8 +116,6 @@ class NavigationRoute extends SourceConnectedComponent {
             previousImageWidth: 50,
             previousImageHeight: 50
         };
-        this.rxStomp = null;
-        this.mqttClient = null;
         this.canvas = React.createRef();
         this.ctx = null;
         this.gotoCanvas = React.createRef();
@@ -125,15 +123,11 @@ class NavigationRoute extends SourceConnectedComponent {
         this.tempPoint = null;
         this.tempDeleteAnnotation = null;
         this.tempSelectedAnnotation = null;
-
-        this.changeSpinner = this.changeSpinner.bind(this);
+        this.init();
         this.messageReceivedMap = this.messageReceivedMap.bind(this);
         this.messageReceivedPose = this.messageReceivedPose.bind(this);
         this.messageReceivedPath = this.messageReceivedPath.bind(this);
         this.messageReceivedAnnotations = this.messageReceivedAnnotations.bind(this);
-        this.connectStompSource = this.connectStompSource.bind(this);
-        this.connectMqttSource = this.connectMqttSource.bind(this);
-        this.connectToTopic = this.connectToTopic.bind(this);
         this.resize = this.resize.bind(this);
         this.annotate = this.annotate.bind(this);
         this.goToPlace = this.goToPlace.bind(this);

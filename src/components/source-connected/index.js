@@ -7,6 +7,55 @@ import {findSource} from '../../api/sources';
 import {ToasterBottom} from '../../lib/toaster';
 
 class SourceConnectedComponent extends React.Component {
+
+    componentDidMount() {
+        this.connectToTopic();
+    }
+
+    componentWillUnmount() {
+        if (this.rxStomp !== null) {
+            this.rxStomp.deactivate();
+        }
+        if (this.mqttClient !== null) {
+            this.mqttClient.end();
+        }
+    }
+
+    init() {
+        this.rxStomp = null;
+        this.mqttClient = null;
+        this.connectStompSource = this.connectStompSource.bind(this);
+        this.connectMqttSource = this.connectMqttSource.bind(this);
+        this.connectToTopic = this.connectToTopic.bind(this);
+    }
+
+    updateIntervalsFromSource() {
+        const {counter} = this.state;
+        const newCounter = counter + 1;
+        let ts = (new Date() - this.prevTime) / 1000.0;
+        if (this.prevTime < 0) {
+            ts = '-';
+            this.minInterval = 1000000000;
+            this.maxInterval = 0;
+            this.meanInterval = 0;
+        } else {
+            if (ts < this.minInterval) {
+                this.minInterval = ts;
+            }
+            if (ts > this.maxInterval) {
+                this.maxInterval = ts;
+            }
+            this.meanInterval += ts;
+        }
+        this.prevTime = new Date();
+        return {newCounter, ts};
+    }
+
+    changeSpinner(value) {
+        // eslint-disable-next-line react/no-unused-state
+        this.setState({spinnerOpen: value});
+    }
+
     connectStompSource(source) {
         const {name, topic} = this.state;
         try {

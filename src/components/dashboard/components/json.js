@@ -39,56 +39,15 @@ class Json extends SourceConnectedComponent {
             width: 50,
             height: 50
         };
-        this.rxStomp = null;
-        this.mqttClient = null;
-
-        this.changeSpinner = this.changeSpinner.bind(this);
+        this.init();
         this.messageReceived = this.messageReceived.bind(this);
-        this.connectStompSource = this.connectStompSource.bind(this);
-        this.connectMqttSource = this.connectMqttSource.bind(this);
-        this.connectToTopic = this.connectToTopic.bind(this);
         this.resize = this.resize.bind(this);
-    }
-
-    componentDidMount() {
-        this.connectToTopic();
-    }
-
-    componentWillUnmount() {
-        if (this.rxStomp !== null) {
-            this.rxStomp.deactivate();
-        }
-        if (this.mqttClient !== null) {
-            this.mqttClient.end();
-        }
-    }
-
-    changeSpinner(value) {
-        this.setState({spinnerOpen: value});
     }
 
     messageReceived(payload) {
         const {variable} = this.state;
         try {
-            const {counter} = this.state;
-            const newCounter = counter + 1;
-            let ts = (new Date() - this.prevTime) / 1000.0;
-            if (this.prevTime < 0) {
-                ts = '-';
-                this.minInterval = 1000000000;
-                this.maxInterval = 0;
-                this.meanInterval = 0;
-            } else {
-                if (ts < this.minInterval) {
-                    this.minInterval = ts;
-                }
-                if (ts > this.maxInterval) {
-                    this.maxInterval = ts;
-                }
-                this.meanInterval += ts;
-            }
-            this.prevTime = new Date();
-
+            const {newCounter, ts} = this.updateIntervalsFromSource();
             const value = objectPath.get(payload, variable);
             if (isValidJson(value)) {
                 this.setState({
