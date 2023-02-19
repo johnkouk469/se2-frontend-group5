@@ -11,8 +11,10 @@ const config = {
     env: {
         TEST_TOKEN: process.env.TEST_TOKEN,
         TEST_USERNAME: process.env.TEST_USERNAME,
+        TEST_PASSWORD: process.env.TEST_PASSWORD,
         TEST_ID: process.env.TEST_ID,
         TEST_EMAIL: process.env.TEST_EMAIL,
+        REACT_APP_SERVER_URL: process.env.REACT_APP_SERVER_URL
     },
     e2e: {},
 };
