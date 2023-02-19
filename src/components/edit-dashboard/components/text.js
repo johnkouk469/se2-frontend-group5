@@ -9,8 +9,9 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
-class Text extends React.Component {
+class Text extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -29,17 +30,11 @@ class Text extends React.Component {
             fontSize: 50
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.resize = this.resize.bind(this);
         this.changeText = this.changeText.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -57,21 +52,6 @@ class Text extends React.Component {
             const width = document.getElementById(`textDiv_${id}`).offsetWidth;
             this.resize(width, height);
         }
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -95,14 +75,6 @@ class Text extends React.Component {
         this.setState({popoverOpen: false});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
     resize(width, height) {
         const {text} = this.state;
         this.setState({fontSize: Math.max(Math.min(height, ((2 * width) / text.length)), 12)});
@@ -111,12 +83,6 @@ class Text extends React.Component {
     changeText(event) {
         event.stopPropagation();
         this.setState({tempText: event.target.value});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

@@ -7,8 +7,9 @@ import {BlueBorderButton, BlueButton} from '../../../lib/buttons';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
+import BaseEditComponent from './base-edit';
 
-class Iframe extends React.Component {
+class Iframe extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -26,16 +27,10 @@ class Iframe extends React.Component {
             tempUrl: ''
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
         this.changeUrl = this.changeUrl.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -44,21 +39,6 @@ class Iframe extends React.Component {
             name: props.initialState.name || 'Iframe',
             url: props.initialState.url || ''
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -81,20 +61,6 @@ class Iframe extends React.Component {
         this.setState({tempUrl: event.target.value});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
-    }
-
     render() {
         const {id, name, url, popoverOpen, deletePopupOpen, tempUrl} = this.state;
         const formattedUrl = (url.startsWith('http://') || url.startsWith('https://')) ? url : `http://${url}`;
@@ -105,7 +71,7 @@ class Iframe extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-               <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <div
                     id={`iframeDiv_${id}`}
                     style={{

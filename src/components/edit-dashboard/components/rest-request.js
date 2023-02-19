@@ -12,6 +12,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from "./base-edit";
 
 const availableTypes = ['GET', 'POST', 'PUT'];
 
@@ -38,7 +39,7 @@ const formatStatusColor = (status) => {
     }
 };
 
-class RestRequest extends React.Component {
+class RestRequest extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -70,14 +71,9 @@ class RestRequest extends React.Component {
             fontSize: 18,
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.changeUrl = this.changeUrl.bind(this);
         this.changeRequestType = this.changeRequestType.bind(this);
         this.changeFire = this.changeFire.bind(this);
@@ -86,7 +82,6 @@ class RestRequest extends React.Component {
         this.changeBody = this.changeBody.bind(this);
         this.changeParams = this.changeParams.bind(this);
         this.resize = this.resize.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -101,21 +96,6 @@ class RestRequest extends React.Component {
             body: props.initialState.body || '',
             params: props.initialState.params || ''
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -155,14 +135,6 @@ class RestRequest extends React.Component {
         this.sendUpdate('body', tempBody);
         this.sendUpdate('params', tempParams);
         this.setState({popoverOpen: false});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
     }
 
     changeUrl(event) {
@@ -209,12 +181,6 @@ class RestRequest extends React.Component {
             activeText: (height > 40 && width > 90),
             fontSize
         });
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

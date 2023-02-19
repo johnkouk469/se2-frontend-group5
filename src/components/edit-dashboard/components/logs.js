@@ -18,6 +18,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -29,7 +30,7 @@ const FormSubHeader = styled.div`
     color: #16335B;
 `;
 
-class Logs extends React.Component {
+class Logs extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -61,14 +62,9 @@ class Logs extends React.Component {
             newColorValue: ''
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.changeSource = this.changeSource.bind(this);
         this.changeTopic = this.changeTopic.bind(this);
         this.changeVariable = this.changeVariable.bind(this);
@@ -79,7 +75,6 @@ class Logs extends React.Component {
         this.removeColorKey = this.removeColorKey.bind(this);
         this.openKeyValuePairs = this.openKeyValuePairs.bind(this);
         this.back = this.back.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -94,21 +89,6 @@ class Logs extends React.Component {
             colorKeys: props.initialState.colorKeys || [],
             colorValues: props.initialState.colorValues || []
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -150,14 +130,6 @@ class Logs extends React.Component {
         this.sendUpdate('colorKeys', tempColorKeys);
         this.sendUpdate('colorValues', tempColorValues);
         this.setState({popoverOpen: false, keyValuePopupOpen: false});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
     }
 
     changeSource(value) {
@@ -224,12 +196,6 @@ class Logs extends React.Component {
         this.setState({popoverOpen: true, keyValuePopupOpen: false});
     }
 
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
-    }
-
     render() {
         const {id, availableSources, name, popoverOpen, deletePopupOpen, keyValuePopupOpen, tempSource, tempTopic, tempVariable, tempMaxMessages, tempColorKeys, tempColorValues, newColorKey, newColorValue} = this.state;
 
@@ -239,7 +205,7 @@ class Logs extends React.Component {
                     width: '100%', height: '100%', background: 'white', padding: '1%', display: 'flex', flexDirection: 'column', borderRadius: '10px', fontSize: '16px'
                 }}
             >
-               <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
+                <Toolbar onMouseDown={(e) => e.stopPropagation()} onChange={this.changeName} value={name} cloneItem={this.clone} editItem={this.openPopup} deleteItem={this.openDelete} />
                 <div
                     id={`logsDiv_${id}`}
                     style={{

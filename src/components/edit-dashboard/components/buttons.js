@@ -14,6 +14,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -24,7 +25,6 @@ const FormSubHeader = styled.div`
     font-size: 18px;
     color: #16335B;
 `;
-
 
 const textAlignments = {
     left: 'Left',
@@ -46,7 +46,7 @@ const isValidJson = (input) => {
     return true;
 };
 
-class Buttons extends React.Component {
+class Buttons extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -115,15 +115,10 @@ class Buttons extends React.Component {
             tempBackgroundsHover: ['#ff7e33']
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
         this.confirmPopup = this.confirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.openButtonPopover = this.openButtonPopover.bind(this);
         this.changeAlignText = this.changeAlignText.bind(this);
         this.changeButtonsAlign = this.changeButtonsAlign.bind(this);
@@ -138,7 +133,6 @@ class Buttons extends React.Component {
         this.addButton = this.addButton.bind(this);
         this.removeButton = this.removeButton.bind(this);
         this.back = this.back.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -157,21 +151,6 @@ class Buttons extends React.Component {
             backgrounds: props.initialState.backgrounds || ['#FF9D66'],
             backgroundsHover: props.initialState.backgroundsHover || ['#ff7e33']
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -245,14 +224,6 @@ class Buttons extends React.Component {
 
     confirmPopup() {
         this.update(...this.state);
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
     }
 
     openButtonPopover(ind) {
@@ -367,12 +338,6 @@ class Buttons extends React.Component {
 
     back() {
         this.setState({popoverOpen: true, buttonPopoverOpen: false, buttonSelected: null});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

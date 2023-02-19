@@ -9,6 +9,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
 const formatStatusColor = (status) => {
     const statusString = status.toString()[0];
@@ -28,7 +29,7 @@ const formatStatusColor = (status) => {
     }
 };
 
-class Rest extends React.Component {
+class Rest extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -51,18 +52,12 @@ class Rest extends React.Component {
             fontSize: 18,
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.changeUrl = this.changeUrl.bind(this);
         this.changeInterval = this.changeInterval.bind(this);
         this.resize = this.resize.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -72,21 +67,6 @@ class Rest extends React.Component {
             url: props.initialState.url || '',
             interval: props.initialState.interval || 5000
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -113,14 +93,6 @@ class Rest extends React.Component {
         this.setState({popoverOpen: false});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
     changeUrl(event) {
         event.stopPropagation();
         this.setState({tempUrl: event.target.value});
@@ -143,12 +115,6 @@ class Rest extends React.Component {
             smallIcon: (height < 40 || width < 40),
             fontSize
         });
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

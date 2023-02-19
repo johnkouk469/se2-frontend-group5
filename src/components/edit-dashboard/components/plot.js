@@ -20,6 +20,7 @@ import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import PlotComponent from '../../plot';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
 const FormSubHeader = styled.div`
     width: 100%;
@@ -43,7 +44,7 @@ const plotTypes = {
     bar: 'Bar chart'
 };
 
-class Plot extends React.Component {
+class Plot extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -118,14 +119,9 @@ class Plot extends React.Component {
         };
 
         this.generateValues = this.generateValues.bind(this);
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.changeSource = this.changeSource.bind(this);
         this.changeVerticalGrid = this.changeVerticalGrid.bind(this);
         this.changeHorizontalGrid = this.changeHorizontalGrid.bind(this);
@@ -140,7 +136,6 @@ class Plot extends React.Component {
         this.changeVariables = this.changeVariables.bind(this);
         this.changeColors = this.changeColors.bind(this);
         this.changeSmooths = this.changeSmooths.bind(this);
-        this.clone = this.clone.bind(this);
         this.resize = this.resize.bind(this);
         this.addPlot = this.addPlot.bind(this);
         this.removePlot = this.removePlot.bind(this);
@@ -178,21 +173,6 @@ class Plot extends React.Component {
             data.push({x: (new Date(today.getTime() + (Math.floor(Math.random() * (10 - 5) + 5) * 60 * 1000))).getTime(), y: Math.random()});
         }
         return data;
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -255,14 +235,6 @@ class Plot extends React.Component {
         this.sendUpdate('colors', tempColors);
         this.sendUpdate('smooths', tempSmooths);
         this.setState({popoverOpen: false, plotPopoverOpen: false, plotSelected: null});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
     }
 
     openPlotPopup(ind) {
@@ -341,13 +313,6 @@ class Plot extends React.Component {
         tempSmooths[ind] = !(tempSmooths[ind]);
         this.setState({tempSmooths});
     }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
-    }
-
     resize(width, height) {
         this.setState({width, height});
     }

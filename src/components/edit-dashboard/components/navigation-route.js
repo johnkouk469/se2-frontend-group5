@@ -18,6 +18,7 @@ import {
 import imagePlaceholder from '../../../assets/imagePlaceholder.png';
 import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
+import BaseEditComponent from "./base-edit";
 
 const CustomDiv = styled.div`
     width: 100%;
@@ -45,7 +46,7 @@ const CustomDiv = styled.div`
     }
 `;
 
-class NavigationRoute extends React.Component {
+class NavigationRoute extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -91,14 +92,9 @@ class NavigationRoute extends React.Component {
             closedButtons: false
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.changeSource = this.changeSource.bind(this);
         this.changeMapTopic = this.changeMapTopic.bind(this);
         this.changeRequestMapTopic = this.changeRequestMapTopic.bind(this);
@@ -111,7 +107,6 @@ class NavigationRoute extends React.Component {
         this.changePoseTopic = this.changePoseTopic.bind(this);
         this.changePathTopic = this.changePathTopic.bind(this);
         this.resize = this.resize.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     componentDidMount() {
@@ -137,21 +132,6 @@ class NavigationRoute extends React.Component {
             poseTopic: props.initialState.poseTopic || '',
             pathTopic: props.initialState.pathTopic || ''
         };
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -203,14 +183,6 @@ class NavigationRoute extends React.Component {
         this.sendUpdate('poseTopic', tempPoseTopic);
         this.sendUpdate('pathTopic', tempPathTopic);
         this.setState({popoverOpen: false});
-    }
-
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
     }
 
     changeSource(value) {
@@ -287,12 +259,6 @@ class NavigationRoute extends React.Component {
             imageWidth: w,
             imageHeight: h
         });
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {

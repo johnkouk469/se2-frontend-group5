@@ -10,6 +10,7 @@ import {FormHeader, SettingsDiv} from '../../styled-components';
 import AlertComponent from './alert';
 import Toolbar from './toolbar';
 import ConfirmationButtonsComponent from '../../confirmation-buttons';
+import BaseEditComponent from './base-edit';
 
 const StyledLink = styled.div`
     width: 100%;
@@ -27,7 +28,7 @@ const StyledLink = styled.div`
     }
 `;
 
-class Url extends React.Component {
+class Url extends BaseEditComponent {
     constructor(props) {
         super(props);
 
@@ -46,17 +47,11 @@ class Url extends React.Component {
             fontSize: 50
         };
 
-        this.sendUpdate = this.sendUpdate.bind(this);
-        this.delete = this.delete.bind(this);
-        this.changeName = this.changeName.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.closeConfirmPopup = this.closeConfirmPopup.bind(this);
-        this.openDelete = this.openDelete.bind(this);
-        this.closeDelete = this.closeDelete.bind(this);
         this.resize = this.resize.bind(this);
         this.changeUrl = this.changeUrl.bind(this);
-        this.clone = this.clone.bind(this);
     }
 
     static getDerivedStateFromProps(props) {
@@ -74,21 +69,6 @@ class Url extends React.Component {
             const width = document.getElementById(`urlDiv_${id}`).offsetWidth;
             this.resize(width, height);
         }
-    }
-
-    sendUpdate(key, value) {
-        const {id} = this.state;
-        this.updateItem(id, key, value);
-    }
-
-    delete() {
-        const {id} = this.state;
-        this.setState({deletePopupOpen: false});
-        this.deleteItem(id);
-    }
-
-    changeName(value) {
-        this.sendUpdate('name', value);
     }
 
     openPopup() {
@@ -112,14 +92,6 @@ class Url extends React.Component {
         this.setState({popoverOpen: false});
     }
 
-    openDelete() {
-        this.setState({deletePopupOpen: true});
-    }
-
-    closeDelete() {
-        this.setState({deletePopupOpen: false});
-    }
-
     resize(width, height) {
         const {url} = this.state;
         this.setState({fontSize: Math.max(Math.min(height, ((2 * width) / url.length)), 12)});
@@ -128,12 +100,6 @@ class Url extends React.Component {
     changeUrl(event) {
         event.stopPropagation();
         this.setState({tempUrl: event.target.value});
-    }
-
-    clone() {
-        const {id} = this.state;
-        this.closePopup();
-        this.cloneComponent(id);
     }
 
     render() {
