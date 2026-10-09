@@ -12,10 +12,10 @@ describe('Navigate to dashboards screen', () => {
     
     beforeEach(() => {
         cy.clearLocalStorage();
-        login();
         cy.intercept('/dashboards/dashboards', dashboards);
         cy.intercept('/general/statistics', resp);
         cy.intercept('/dashboards/create-dashboard', {success: true});
+        login();
     });
 
     it('Navigate to dashboards screen if user is already authenticated', () => {
