@@ -4,22 +4,24 @@ on: push
 
 jobs:
   ci:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 16
       - run: npm ci
       - run: npm run build
 
       - name: Run test script
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         with:
           build: npm run build
           start: npm run start
           command: npm run test
           install-command: npm ci
+          wait-on: http://localhost:3002
+          wait-on-timeout: 120
         env:
           TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
           TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
